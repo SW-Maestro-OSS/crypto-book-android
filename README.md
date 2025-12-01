@@ -1,1 +1,1 @@
-# crypto-book-with-ai-aos
+# crypto-book-android
