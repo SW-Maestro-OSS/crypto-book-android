@@ -21,4 +21,8 @@ dependencyResolutionManagement {
 
 rootProject.name = "CryptoBook"
 include(":app")
- 
+include(":domain")
+include(":data")
+include(":feature:coin-list")
+include(":feature:coin-detail")
+include(":feature:settings")
