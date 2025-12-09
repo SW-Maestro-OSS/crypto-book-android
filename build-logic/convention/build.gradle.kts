@@ -22,5 +22,9 @@ gradlePlugin {
             id = libs.plugins.cryptobook.android.library.get().pluginId
             implementationClass = "AndroidLibraryConventionPlugin"
         }
+        register("hilt") {
+            id = libs.plugins.cryptobook.hilt.get().pluginId
+            implementationClass = "HiltConventionPlugin"
+        }
     }
 }
