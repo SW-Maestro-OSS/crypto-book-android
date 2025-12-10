@@ -12,6 +12,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import dagger.hilt.android.AndroidEntryPoint
+import io.soma.cryptobook.navigation.CbNavigator
+import io.soma.cryptobook.navigation.rememberCbNavigator
 import io.soma.cryptobook.ui.theme.CryptoBookTheme
 
 @AndroidEntryPoint
@@ -20,14 +22,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            CryptoBookTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
-            }
+
+            CryptoBookApp()
         }
     }
 }
