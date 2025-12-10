@@ -21,6 +21,8 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "CryptoBook"
+
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 include(":app")
 include(":domain")
 include(":data")
