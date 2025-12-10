@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "io.soma.cryptobook.feature.coin_detail"
+    namespace = "io.soma.cryptobook.core.ui"
     compileSdk {
         version = release(36)
     }
@@ -35,9 +35,9 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:ui"))
-
     implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.kotlinx.coroutines.android)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     testImplementation(libs.junit)
