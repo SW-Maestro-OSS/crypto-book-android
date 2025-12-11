@@ -13,8 +13,8 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:ui"))
-    implementation(project(":domain"))
+    implementation(projects.core.ui)
+    implementation(projects.domain)
 
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.foundation)
