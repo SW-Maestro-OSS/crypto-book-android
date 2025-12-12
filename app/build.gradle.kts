@@ -44,9 +44,9 @@ android {
 }
 
 dependencies {
-    implementation(projects.domain)
-    implementation(projects.data)
-    implementation(projects.feature.coinList)
+    implementation(projects.coinList.domain)
+    implementation(projects.coinList.data)
+    implementation(projects.coinList.presentation)
 
     // Navigation 3
     implementation(libs.androidx.navigation3.runtime)

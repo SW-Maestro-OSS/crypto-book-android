@@ -25,14 +25,16 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/build-logic" />
             <option value="$PROJECT_DIR$/build-logic/convention" />
+            <option value="$PROJECT_DIR$/coin-detail" />
+            <option value="$PROJECT_DIR$/coin-detail/presentation" />
+            <option value="$PROJECT_DIR$/coin-list" />
+            <option value="$PROJECT_DIR$/coin-list/data" />
+            <option value="$PROJECT_DIR$/coin-list/domain" />
+            <option value="$PROJECT_DIR$/coin-list/presentation" />
             <option value="$PROJECT_DIR$/core" />
-            <option value="$PROJECT_DIR$/core/ui" />
-            <option value="$PROJECT_DIR$/data" />
-            <option value="$PROJECT_DIR$/domain" />
-            <option value="$PROJECT_DIR$/feature" />
-            <option value="$PROJECT_DIR$/feature/coin-detail" />
-            <option value="$PROJECT_DIR$/feature/coin-list" />
-            <option value="$PROJECT_DIR$/feature/settings" />
+            <option value="$PROJECT_DIR$/core/presentation" />
+            <option value="$PROJECT_DIR$/settings" />
+            <option value="$PROJECT_DIR$/settings/presentation" />
           </set>
         </option>
       </GradleProjectSettings>

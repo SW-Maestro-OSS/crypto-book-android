@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel target="11" />
+    <bytecodeTargetLevel target="17">
+      <module name="CryptoBook.data" target="21" />
+      <module name="CryptoBook.feature.coin-detail" target="21" />
+      <module name="CryptoBook.feature.coin-list" target="21" />
+      <module name="CryptoBook.feature.settings" target="21" />
+    </bytecodeTargetLevel>
   </component>
 </project>
