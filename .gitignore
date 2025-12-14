@@ -22,9 +22,6 @@ output.json
 # IntelliJ
 *.iml
 .idea/
-misc.xml
-deploymentTargetDropDown.xml
-render.experimental.xml
 
 # Keystore files
 *.jks
@@ -158,31 +155,7 @@ obj/
 *.iws
 /out/
 
-# User-specific configurations
-.idea/caches/
-.idea/libraries/
-.idea/shelf/
-.idea/workspace.xml
-.idea/tasks.xml
-.idea/.name
-.idea/compiler.xml
-.idea/copyright/profiles_settings.xml
-.idea/encodings.xml
-.idea/misc.xml
-.idea/modules.xml
-.idea/scopes/scope_settings.xml
-.idea/dictionaries
-.idea/vcs.xml
-.idea/jsLibraryMappings.xml
-.idea/datasources.xml
-.idea/dataSources.ids
-.idea/sqlDataSources.xml
-.idea/dynamic.xml
-.idea/uiDesigner.xml
-.idea/assetWizardSettings.xml
-.idea/gradle.xml
-.idea/jarRepositories.xml
-.idea/navEditor.xml
+# User-specific configurations (covered by .idea/ above)
 
 # Legacy Eclipse project files
 .classpath
@@ -204,8 +177,7 @@ obj/
 # JIRA plugin
 atlassian-ide-plugin.xml
 
-# Mongo Explorer plugin
-.idea/mongoSettings.xml
+# Mongo Explorer plugin (covered by .idea/ above)
 
 # Crashlytics plugin (for Android Studio and IntelliJ)
 com_crashlytics_export_strings.xml
