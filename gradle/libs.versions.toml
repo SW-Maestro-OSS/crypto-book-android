@@ -81,3 +81,4 @@ kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", vers
 # Plugins defined by this project
 cryptobook-android-library = { id = "cryptobook.android.library" }
 cryptobook-hilt = { id = "cryptobook.hilt" }
+cryptobook-android-library-compose = { id = "cryptobook.android.library.compose" }

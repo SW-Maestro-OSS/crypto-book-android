@@ -19,12 +19,16 @@ dependencies {
 gradlePlugin {
     plugins {
         register("androidLibrary") {
-            id = libs.plugins.cryptobook.android.library.get().pluginId
+            id = libs.plugins.cryptobook.android.library.asProvider().get().pluginId
             implementationClass = "AndroidLibraryConventionPlugin"
         }
         register("hilt") {
             id = libs.plugins.cryptobook.hilt.get().pluginId
             implementationClass = "HiltConventionPlugin"
+        }
+        register("androidLibraryCompose") {
+            id = libs.plugins.cryptobook.android.library.compose.get().pluginId
+            implementationClass = "AndroidLibraryComposeConventionPlugin"
         }
     }
 }

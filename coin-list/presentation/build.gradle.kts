@@ -1,15 +1,11 @@
 plugins {
     alias(libs.plugins.cryptobook.android.library)
     alias(libs.plugins.cryptobook.hilt)
-    alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.cryptobook.android.library.compose)
 }
 
 android {
     namespace = "io.soma.cryptobook.coinlist.presentation"
-
-    buildFeatures {
-        compose = true
-    }
 }
 
 dependencies {
