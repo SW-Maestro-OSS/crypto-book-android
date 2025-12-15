@@ -1,4 +1,4 @@
-package io.soma.cryptobook.coinlist.data.network.di
+package io.soma.cryptobook.di
 
 import dagger.Module
 import dagger.Provides
@@ -14,7 +14,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-internal object NetworkModule {
+object NetworkModule {
     private const val BASE_URL = "https://api.binance.com/"
 
     @Provides

@@ -48,6 +48,12 @@ dependencies {
     implementation(projects.coinList.data)
     implementation(projects.coinList.presentation)
 
+    // Networking (for DI modules)
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.okhttp.logging)
+    implementation(libs.retrofit.core)
+    implementation(libs.retrofit.kotlin.serialization)
+
     // Navigation 3
     implementation(libs.androidx.navigation3.runtime)
     implementation(libs.androidx.navigation3.ui)
