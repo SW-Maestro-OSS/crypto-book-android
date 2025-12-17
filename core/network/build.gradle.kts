@@ -1,9 +1,10 @@
 plugins {
     alias(libs.plugins.cryptobook.android.library)
+    alias(libs.plugins.cryptobook.hilt)
 }
 
 android {
-    namespace = "io.soma.cryptobook.coindetail.presentation"
+    namespace = "io.soma.cryptobook.core.network"
 
     defaultConfig {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -22,7 +23,12 @@ android {
 }
 
 dependencies {
-    implementation(projects.core.presentation)
+    implementation(projects.coinList.domain)
+
+    implementation(libs.okhttp.logging)
+    implementation(libs.retrofit.core)
+
+    implementation(libs.kotlinx.serialization.json)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

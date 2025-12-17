@@ -2,14 +2,14 @@ package io.soma.cryptobook.coinlist.presentation
 
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.soma.cryptobook.coinlist.domain.repository.CoinRepository
+import io.soma.cryptobook.coinlist.domain.usecase.GetCoinListUseCase
 import io.soma.cryptobook.core.presentation.BaseViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class CoinListViewModel @Inject constructor(
-    private val coinRepository: CoinRepository
+    private val getCoinListUseCase: GetCoinListUseCase
 ) :
     BaseViewModel<CoinListEvent, CoinListUiState, CoinListSideEffect>(CoinListUiState()) {
     override fun handleEvent(event: CoinListEvent) {
@@ -27,14 +27,25 @@ class CoinListViewModel @Inject constructor(
         viewModelScope.launch {
             setUiState { copy(isLoading = true) }
 
-            try {
-                val data = coinRepository.getCoinPrices().map { it.toCoinItem() }
-                setUiState { copy(isLoading = false, coins = data) }
-            } catch (e: Exception) {
-                setUiState { copy(isLoading = false, errorMsg = e.message) }
-                sendSideEffect { CoinListSideEffect.ShowToast(e.message ?: "Unknown Error") }
+            when (val result = getCoinListUseCase()) {
+                is GetCoinListUseCase.Result.Success -> {
+                    setUiState { copy(isLoading = false, coins = result.coinList.map { it.toCoinItem() }) }
+                }
+                is GetCoinListUseCase.Result.Error -> {
+                    setUiState { copy(isLoading = false) }
+                    when (result) {
+                        is GetCoinListUseCase.Result.Error.Network -> {
+                            setUiState { copy(errorMsg = "인터넷 연결을 확인해주세요") }
+                            sendSideEffect { CoinListSideEffect.ShowToast("인터넷 연결을 확인해주세요") }
+                        }
+                        is GetCoinListUseCase.Result.Error.Server,
+                        is GetCoinListUseCase.Result.Error.Unknown
+                             -> {
+                            sendSideEffect { CoinListSideEffect.ShowToast("잠시 후 다시 시도해주세요") }
+                        }
+                    }
+                }
             }
-
         }
     }
 }
