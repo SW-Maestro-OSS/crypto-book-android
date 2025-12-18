@@ -34,7 +34,6 @@ class CoinListViewModel @Inject constructor(
                 setUiState { copy(isLoading = false, errorMsg = e.message) }
                 sendSideEffect { CoinListSideEffect.ShowToast(e.message ?: "Unknown Error") }
             }
-
         }
     }
 }
