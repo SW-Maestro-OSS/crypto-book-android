@@ -27,8 +27,8 @@ abstract class MviViewModel<STATE : Any, SIDE_EFFECT : Any>(
     }
 
 
-    fun reduce(redcuer: STATE.() -> STATE) {
-        _stateFlow.value = _stateFlow.value.redcuer()
+    protected fun reduce(reducer: STATE.() -> STATE) {
+        _stateFlow.value = _stateFlow.value.reducer()
     }
 
     suspend fun postSideEffect(sideEffect: SIDE_EFFECT) {
