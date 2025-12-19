@@ -7,6 +7,7 @@ import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import io.soma.cryptobook.coinlist.presentation.CoinListRoute
+import io.soma.cryptobook.settings.presentation.SettingsRoute
 
 @Composable
 fun CbNavHost(
@@ -34,7 +35,7 @@ fun CbNavHost(
 //                )
             }
             entry<CbScreen.Settings> {
-//                SettingsRoute(navigator = navigator)
+                SettingsRoute()
             }
         }
     )

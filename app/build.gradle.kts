@@ -47,7 +47,16 @@ dependencies {
     implementation(projects.coinList.domain)
     implementation(projects.coinList.data)
     implementation(projects.coinList.presentation)
+    implementation(projects.core.network)
 
+    // Networking (for DI modules)
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.okhttp.logging)
+    implementation(libs.retrofit.core)
+    implementation(libs.retrofit.kotlin.serialization)
+
+    implementation(projects.settings.domain)
+    implementation(projects.settings.data)
     implementation(projects.settings.presentation)
 
     // Navigation 3
@@ -61,6 +70,7 @@ dependencies {
     implementation(libs.androidx.compose.material3.adaptive.navigation3)
     implementation(libs.androidx.compose.material3.navigationSuite)
     implementation(libs.androidx.compose.material.iconsExtended)
+    implementation(libs.androidx.dataStore)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.lifecycle.runtime.ktx)

@@ -1,4 +1,4 @@
-package io.soma.cryptobook.coinlist.data.di
+package io.soma.cryptobook.di
 
 import dagger.Binds
 import dagger.Module
