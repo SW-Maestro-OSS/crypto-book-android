@@ -30,5 +30,9 @@ gradlePlugin {
             id = libs.plugins.cryptobook.android.library.compose.get().pluginId
             implementationClass = "AndroidLibraryComposeConventionPlugin"
         }
+        register("androidPresentation") {
+            id = libs.plugins.cryptobook.android.presentation.get().pluginId
+            implementationClass = "AndroidPresentationConventionPlugin"
+        }
     }
 }
