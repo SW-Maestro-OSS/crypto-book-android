@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+import "io/soma/cryptobook/coinlist/data/language.proto";
+import "io/soma/cryptobook/coinlist/data/currency_unit.proto";
+
+option java_package = "io.soma.cryptobook.coinlist.data";
+option java_multiple_files = true;
+
+message UserPreferences {
+  LanguageProto language = 1;
+  CurrencyUnitProto currency_unit = 2;
+}
