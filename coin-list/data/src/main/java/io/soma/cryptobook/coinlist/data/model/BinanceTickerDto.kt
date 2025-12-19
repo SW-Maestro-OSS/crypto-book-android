@@ -9,11 +9,13 @@ data class BinanceTickerDto(
     @SerialName("symbol")
     val symbol: String,
     @SerialName("price")
-    val price: String
+    val price: String,
+    @SerialName("priceChangePercent")
+    val priceChangePercent: String
 )
 
 fun BinanceTickerDto.toCoinPriceVO() = CoinPriceVO(
     symbol = symbol,
     price = price.toBigDecimal(),
-    priceChangePercentage24h = 0.0
+    priceChangePercentage24h = priceChangePercent.toDouble()
 )

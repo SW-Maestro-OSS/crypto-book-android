@@ -1,8 +1,10 @@
 package io.soma.cryptobook.coinlist.presentation
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -17,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import java.math.RoundingMode
 
 @Composable
 fun CoinListScreen(
@@ -27,26 +30,40 @@ fun CoinListScreen(
     LaunchedEffect(Unit) {
         onEvent(CoinListEvent.OnScreenLoad)
     }
-
-    Box(modifier = modifier.fillMaxSize()) {
-        if (state.coins.isNotEmpty()) {
-            LazyColumn {
-                items(state.coins) { coin ->
-                    CoinItem(
-                        coin = coin,
-                        onClick = { onEvent(CoinListEvent.OnCoinClicked(coin.symbol)) }
-                    )
-                }
+    Column(modifier = modifier.fillMaxSize()) {
+        state.errorMsg?.let { msg ->
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(Color.Red.copy(alpha = 0.1f))
+                    .padding(8.dp),
+                horizontalArrangement = Arrangement.Center
+            ) {
+                Text(text = msg, color = Color.Red)
             }
         }
+        Box(modifier = modifier.fillMaxSize()) {
+            if (state.coins.isNotEmpty()) {
+                LazyColumn {
+                    items(state.coins, key = { it.symbol }) { coin ->
+                        CoinItem(
+                            coin = coin,
+                            onClick = { onEvent(CoinListEvent.OnCoinClicked(coin.symbol)) }
+                        )
+                    }
+                }
+            }
 
-        if (state.isLoading) {
-            CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
-        }
+            if (state.isLoading) {
+                CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+            }
 
-        state.errorMsg?.let { msg ->
-            Text(text = msg, color = Color.Red, modifier = Modifier.align(Alignment.Center))
-        }
+    }
+//
+//
+//        state.errorMsg?.let { msg ->
+//            Text(text = msg, color = Color.Red, modifier = Modifier.align(Alignment.Center))
+//        }
     }
 }
 
@@ -60,6 +77,10 @@ fun CoinItem(coin: CoinItem, onClick: () -> Unit) {
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Text(text = coin.symbol)
-        Text(text = "$${coin.price}")
+        Text(text = "$${coin.price.setScale(2, RoundingMode.HALF_UP)}")
+        Text(
+            text = "${if (coin.priceChangePercentage24h >= 0) "+" else ""}${coin.priceChangePercentage24h}%",
+            color = if (coin.priceChangePercentage24h >= 0) Color.Green else Color.Red
+        )
     }
 }
