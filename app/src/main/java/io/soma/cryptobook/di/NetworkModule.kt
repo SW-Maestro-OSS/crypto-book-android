@@ -1,10 +1,11 @@
-package io.soma.cryptobook.coinlist.data.network.di
+package io.soma.cryptobook.di
 
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import io.soma.cryptobook.coinlist.data.network.BinanceApiService
+import io.soma.cryptobook.core.network.BinanceWebSocketClient
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
@@ -14,7 +15,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-internal object NetworkModule {
+object NetworkModule {
     private const val BASE_URL = "https://api.binance.com/"
 
     @Provides
@@ -45,4 +46,11 @@ internal object NetworkModule {
         retrofit: Retrofit
     ): BinanceApiService =
         retrofit.create(BinanceApiService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideBinanceWebSocketClient(
+        okHttpClient: OkHttpClient
+    ): BinanceWebSocketClient =
+        BinanceWebSocketClient(okHttpClient)
 }

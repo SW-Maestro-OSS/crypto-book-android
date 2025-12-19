@@ -25,6 +25,7 @@ android {
 
 dependencies {
     implementation(projects.coinList.domain)
+    implementation(projects.core.network)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
