@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.cryptobook.android.library)
     alias(libs.plugins.cryptobook.hilt)
+    alias(libs.plugins.cryptobook.spotless)
 }
 
 android {
@@ -16,7 +17,7 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
     }

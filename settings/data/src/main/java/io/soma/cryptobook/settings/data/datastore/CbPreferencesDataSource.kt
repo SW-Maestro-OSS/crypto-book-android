@@ -22,21 +22,21 @@ class CbPreferencesDataSource @Inject constructor(
                     LanguageProto.LANGUAGE_UNSPECIFIED,
                     LanguageProto.UNRECOGNIZED,
                     LanguageProto.LANGUAGE_ENGLISH,
-                        -> Language.ENGLISH
+                    -> Language.ENGLISH
 
-                    LanguageProto.LANGUAGE_KOREAN
-                        -> Language.KOREAN
+                    LanguageProto.LANGUAGE_KOREAN,
+                    -> Language.KOREAN
                 },
                 currencyUnit = when (it.currencyUnit) {
                     null,
                     CurrencyUnitProto.CURRENCY_UNIT_UNSPECIFIED,
                     CurrencyUnitProto.UNRECOGNIZED,
                     CurrencyUnitProto.CURRENCY_UNIT_DOLLAR,
-                        -> CurrencyUnit.DOLLAR
+                    -> CurrencyUnit.DOLLAR
 
                     CurrencyUnitProto.CURRENCY_UNIT_WON,
-                        -> CurrencyUnit.WON
-                }
+                    -> CurrencyUnit.WON
+                },
             )
         }
 

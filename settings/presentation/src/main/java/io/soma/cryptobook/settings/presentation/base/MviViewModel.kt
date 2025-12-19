@@ -26,7 +26,6 @@ abstract class MviViewModel<STATE : Any, SIDE_EFFECT : Any>(
         viewModelScope.launch { block() }
     }
 
-
     protected fun reduce(reducer: STATE.() -> STATE) {
         _stateFlow.value = _stateFlow.value.reducer()
     }

@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 class CoinListStreamDataSource @Inject constructor(
     private val webSocketClient: BinanceWebSocketClient,
-    private val json: Json
+    private val json: Json,
 ) {
     sealed class State {
         data class Success(val tickers: List<CoinTickerDto>) : State()

@@ -11,7 +11,7 @@ import javax.inject.Inject
 @HiltViewModel
 class CoinListViewModel @Inject constructor(
     private val getCoinListUseCase: GetCoinListUseCase,
-    private val observeCoinListUseCase: ObserveCoinListUseCase
+    private val observeCoinListUseCase: ObserveCoinListUseCase,
 ) :
     BaseViewModel<CoinListEvent, CoinListUiState, CoinListSideEffect>(CoinListUiState()) {
     override fun handleEvent(event: CoinListEvent) {
@@ -20,6 +20,7 @@ class CoinListViewModel @Inject constructor(
                 loadCoins()
                 observeCoins()
             }
+
             CoinListEvent.OnBackClicked -> sendSideEffect { CoinListSideEffect.Close }
             is CoinListEvent.OnCoinClicked -> sendSideEffect {
                 CoinListSideEffect.NavigateToCoinDetail(event.symbol)
@@ -36,7 +37,7 @@ class CoinListViewModel @Inject constructor(
                             copy(
                                 isLoading = false,
                                 errorMsg = null,
-                                coins = result.coinList.map { it.toCoinItem() }
+                                coins = result.coinList.map { it.toCoinItem() },
                             )
                         }
                     }
@@ -66,8 +67,14 @@ class CoinListViewModel @Inject constructor(
 
             when (val result = getCoinListUseCase()) {
                 is GetCoinListUseCase.Result.Success -> {
-                    setUiState { copy(isLoading = false, coins = result.coinList.map { it.toCoinItem() }) }
+                    setUiState {
+                        copy(
+                            isLoading = false,
+                            coins = result.coinList.map { it.toCoinItem() },
+                        )
+                    }
                 }
+
                 is GetCoinListUseCase.Result.Error -> {
                     setUiState { copy(isLoading = false) }
                     handleLoadError(result)
@@ -82,8 +89,10 @@ class CoinListViewModel @Inject constructor(
                 setUiState { copy(errorMsg = "인터넷 연결을 확인해주세요") }
                 sendSideEffect { CoinListSideEffect.ShowToast("인터넷 연결을 확인해주세요") }
             }
+
             is GetCoinListUseCase.Result.Error.Server,
-            is GetCoinListUseCase.Result.Error.Unknown -> {
+            is GetCoinListUseCase.Result.Error.Unknown,
+                -> {
                 sendSideEffect { CoinListSideEffect.ShowToast("잠시 후 다시 시도해주세요") }
             }
         }

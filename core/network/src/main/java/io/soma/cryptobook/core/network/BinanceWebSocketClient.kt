@@ -11,7 +11,7 @@ import okhttp3.WebSocketListener
 import javax.inject.Inject
 
 class BinanceWebSocketClient @Inject constructor(
-    private val client: OkHttpClient
+    private val client: OkHttpClient,
 ) {
     sealed class Event {
         data class Message(val message: String) : Event()
@@ -49,7 +49,6 @@ class BinanceWebSocketClient @Inject constructor(
             this@BinanceWebSocketClient.webSocket = null
         }
     }
-
 
     fun connect(path: String) {
         if (webSocket != null) return

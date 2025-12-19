@@ -9,7 +9,7 @@ import javax.inject.Inject
 import kotlin.coroutines.cancellation.CancellationException
 
 class GetCoinListUseCase @Inject constructor(
-    private val coinRepository: CoinRepository
+    private val coinRepository: CoinRepository,
 ) {
     sealed class Result {
         data class Success(val coinList: List<CoinPriceVO>) : Result()
@@ -35,6 +35,5 @@ class GetCoinListUseCase @Inject constructor(
         } catch (e: Exception) {
             Result.Error.Unknown(e.message)
         }
-
     }
 }

@@ -20,8 +20,7 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideOkHttpClient(): OkHttpClient =
-        OkHttpClient.Builder().build()
+    fun provideOkHttpClient(): OkHttpClient = OkHttpClient.Builder().build()
 
     @Provides
     @Singleton
@@ -42,15 +41,11 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideBinanceApiService(
-        retrofit: Retrofit
-    ): BinanceApiService =
+    fun provideBinanceApiService(retrofit: Retrofit): BinanceApiService =
         retrofit.create(BinanceApiService::class.java)
 
     @Provides
     @Singleton
-    fun provideBinanceWebSocketClient(
-        okHttpClient: OkHttpClient
-    ): BinanceWebSocketClient =
+    fun provideBinanceWebSocketClient(okHttpClient: OkHttpClient): BinanceWebSocketClient =
         BinanceWebSocketClient(okHttpClient)
 }

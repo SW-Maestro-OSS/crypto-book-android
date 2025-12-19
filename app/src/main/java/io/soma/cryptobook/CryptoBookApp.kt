@@ -23,10 +23,8 @@ import io.soma.cryptobook.navigation.rememberCbNavigator
 import io.soma.cryptobook.ui.theme.CryptoBookTheme
 
 @Composable
-fun CryptoBookApp(
-    modifier: Modifier = Modifier
-) {
-    CryptoBookTheme() {
+fun CryptoBookApp(modifier: Modifier = Modifier) {
+    CryptoBookTheme {
         val navigator = rememberCbNavigator()
 
         NavigationSuiteScaffold(
@@ -38,10 +36,10 @@ fun CryptoBookApp(
                         selected = selected,
                         icon = { Icon(navItem.icon, contentDescription = null) },
                         label = { Text(stringResource(navItem.iconTextId)) },
-                        onClick = { navigator.navigateTo(navKey) }
+                        onClick = { navigator.navigateTo(navKey) },
                     )
                 }
-            }
+            },
         ) {
             Scaffold(
                 modifier = modifier,
@@ -60,12 +58,12 @@ fun CryptoBookApp(
                 ) {
                     Box(
                         modifier = Modifier.consumeWindowInsets(
-                            WindowInsets(0, 0, 0, 0)
+                            WindowInsets(0, 0, 0, 0),
                         ),
                     ) {
                         CbNavHost(
                             navigator = navigator,
-                            modifier = Modifier
+                            modifier = Modifier,
                         )
                     }
                 }
@@ -73,4 +71,3 @@ fun CryptoBookApp(
         }
     }
 }
-

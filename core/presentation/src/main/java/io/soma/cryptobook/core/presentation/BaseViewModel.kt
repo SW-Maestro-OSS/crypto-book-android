@@ -10,13 +10,12 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-
 interface UiState
 interface Event
 interface SideEffect
 
 abstract class BaseViewModel<EVENT : Event, UI_STATE : UiState, SIDE_EFFECT : SideEffect>(
-    initialState: UI_STATE
+    initialState: UI_STATE,
 ) : ViewModel() {
     private val _state: MutableStateFlow<UI_STATE> = MutableStateFlow(initialState)
     val state: StateFlow<UI_STATE> = _state.asStateFlow()

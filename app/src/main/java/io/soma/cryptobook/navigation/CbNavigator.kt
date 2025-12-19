@@ -32,9 +32,7 @@ class CbNavigator(val backStack: NavBackStack<NavKey>) {
 }
 
 @Composable
-fun rememberCbNavigator (
-    startDestination: CbScreen = CbScreen.CoinList
-): CbNavigator {
+fun rememberCbNavigator(startDestination: CbScreen = CbScreen.CoinList): CbNavigator {
     val backStack = rememberNavBackStack(startDestination)
     return remember(backStack) { CbNavigator(backStack) }
 }

@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.cryptobook.android.library)
     alias(libs.plugins.cryptobook.hilt)
     alias(libs.plugins.protobuf)
+    alias(libs.plugins.cryptobook.spotless)
 }
 
 android {

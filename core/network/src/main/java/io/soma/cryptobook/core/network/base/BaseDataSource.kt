@@ -17,6 +17,7 @@ abstract class BaseDataSource {
                         @Suppress("UNCHECKED_CAST")
                         Unit as T
                     }
+
                     else -> {
                         // 200~203은 body가 있어야 정상 - null이면 서버 오류
                         throw HttpResponseException(
@@ -24,7 +25,10 @@ abstract class BaseDataSource {
                             rawCode = response.code(),
                             errorRequestUrl = response.raw().request.url.toString(),
                             msgForLogging = "Success ${response.code()} but unexpected null body",
-                            cause = Throwable("Body should not be null for status ${response.code()}"),
+                            cause =
+                            Throwable(
+                                "Body should not be null for status ${response.code()}",
+                            ),
                         )
                     }
                 }
@@ -37,7 +41,8 @@ abstract class BaseDataSource {
                 status = HttpResponseStatus.create(response.code()),
                 rawCode = response.code(),
                 errorRequestUrl = response.raw().request.url.toString(),
-                msgForLogging = "Http request failed: ${response.code()} ${response.message()}, $errorBody",
+                msgForLogging = "Http request failed: ${response.code()} " +
+                    "${response.message()}, $errorBody",
                 cause = Throwable(errorBody),
             )
         }

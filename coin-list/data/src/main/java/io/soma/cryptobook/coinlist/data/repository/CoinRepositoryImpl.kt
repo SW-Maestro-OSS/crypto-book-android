@@ -17,22 +17,25 @@ import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class CoinRepositoryImpl @Inject constructor(
+class CoinRepositoryImpl
+@Inject
+constructor(
     private val coinListRemoteDataSource: CoinListRemoteDataSource,
     private val coinListStreamDataSource: CoinListStreamDataSource,
-    private val ioDispatcher: CoroutineDispatcher
+    private val ioDispatcher: CoroutineDispatcher,
 ) : CoinRepository {
     private val _coinCache = MutableStateFlow<Map<String, CoinPriceVO>>(linkedMapOf())
     private val mutex = Mutex()
 
-    override suspend fun getCoinPrices(): List<CoinPriceVO> {
-        return withContext(ioDispatcher) {
-            val prices = coinListRemoteDataSource.getAllTickerPrices().map { it.toCoinPriceVO()}
-            mutex.withLock {
-                _coinCache.value = prices.associateBy { it.symbol }
+    override suspend fun getCoinPrices(): List<CoinPriceVO> = withContext(ioDispatcher) {
+        val prices =
+            coinListRemoteDataSource.getAllTickerPrices().map {
+                it.toCoinPriceVO()
             }
-            prices
+        mutex.withLock {
+            _coinCache.value = prices.associateBy { it.symbol }
         }
+        prices
     }
 
     override fun observeCoinPrices(): Flow<List<CoinPriceVO>> = flow {
@@ -52,12 +55,15 @@ class CoinRepositoryImpl @Inject constructor(
                                 emit(updated.values.toList())
                             }
                         }
+
                         is CoinListStreamDataSource.State.Error -> {
                             throw state.throwable
                         }
+
                         is CoinListStreamDataSource.State.Disconnected -> {
                             throw WebSocketDisconnectedException()
                         }
+
                         is CoinListStreamDataSource.State.Connected -> {}
                     }
                 }

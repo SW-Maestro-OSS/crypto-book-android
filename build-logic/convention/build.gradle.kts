@@ -14,6 +14,7 @@ dependencies {
     compileOnly(libs.kotlin.gradlePlugin)
     compileOnly(libs.ksp.gradlePlugin)
     compileOnly(libs.room.gradlePlugin)
+    compileOnly(libs.spotless.gradlePlugin)
 }
 
 gradlePlugin {
@@ -33,6 +34,10 @@ gradlePlugin {
         register("androidPresentation") {
             id = libs.plugins.cryptobook.android.presentation.get().pluginId
             implementationClass = "AndroidPresentationConventionPlugin"
+        }
+        register("spotless") {
+            id = libs.plugins.cryptobook.spotless.get().pluginId
+            implementationClass = "SpotlessConventionPlugin"
         }
     }
 }

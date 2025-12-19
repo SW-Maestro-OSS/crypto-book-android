@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 data class SettingsState(
     val userData: UserData? = null,
-    val isLoading: Boolean = true
+    val isLoading: Boolean = true,
 )
 
 sealed interface SettingsSideEffect {
@@ -29,7 +29,7 @@ sealed interface SettingsEvent {
 class SettingsViewModel @Inject constructor(
     private val getUserDataUseCase: GetUserDataUseCase,
     private val setLanguageUseCase: SetLanguageUseCase,
-    private val setPriceCurrencyUseCase: SetPriceCurrencyUseCase
+    private val setPriceCurrencyUseCase: SetPriceCurrencyUseCase,
 ) : MviViewModel<SettingsState, SettingsSideEffect>(SettingsState()) {
     init {
         intent {

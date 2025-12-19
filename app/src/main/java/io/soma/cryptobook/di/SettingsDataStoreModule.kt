@@ -20,7 +20,7 @@ object SettingsDataStoreModule {
     @Singleton
     internal fun providesUserPreferencesDataStore(
         @ApplicationContext context: Context,
-        userPreferenceSerializer: UserPreferencesSerializer
+        userPreferenceSerializer: UserPreferencesSerializer,
     ): DataStore<UserPreferences> = DataStoreFactory.create(
         serializer = userPreferenceSerializer,
     ) {

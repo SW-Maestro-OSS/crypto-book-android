@@ -21,21 +21,16 @@ import io.soma.cryptobook.settings.domain.model.CurrencyUnit
 import io.soma.cryptobook.settings.domain.model.Language
 
 @Composable
-fun SettingsRoute(
-    modifier: Modifier = Modifier,
-    viewModel: SettingsViewModel = hiltViewModel()
-) {
+fun SettingsRoute(modifier: Modifier = Modifier, viewModel: SettingsViewModel = hiltViewModel()) {
     val state by viewModel.stateFlow.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
         viewModel.sideEffectFlow.collect { sideEffect ->
             when (sideEffect) {
                 is SettingsSideEffect.ShowError -> {
-
                 }
 
                 is SettingsSideEffect.ShowToast -> {
-
                 }
             }
         }
@@ -44,7 +39,7 @@ fun SettingsRoute(
     SettingsScreen(
         state = state,
         onEvent = viewModel::onEvent,
-        modifier = modifier
+        modifier = modifier,
     )
 }
 
@@ -59,7 +54,7 @@ internal fun SettingsScreen(
     val currentCurrency = state.userData?.currencyUnit ?: CurrencyUnit.DOLLAR
 
     Column(
-        modifier = modifier.padding(16.dp)
+        modifier = modifier.padding(16.dp),
     ) {
         // Language Section
         Text(text = "언어 설정")
@@ -71,14 +66,14 @@ internal fun SettingsScreen(
                     onClick = { onEvent(SettingsEvent.SetLanguage(language)) },
                     shape = SegmentedButtonDefaults.itemShape(
                         index = index,
-                        count = Language.entries.size
-                    )
+                        count = Language.entries.size,
+                    ),
                 ) {
                     Text(
                         text = when (language) {
                             Language.ENGLISH -> "English"
                             Language.KOREAN -> "한국어"
-                        }
+                        },
                     )
                 }
             }
@@ -96,14 +91,14 @@ internal fun SettingsScreen(
                     onClick = { onEvent(SettingsEvent.SetCurrencyUnit(currency)) },
                     shape = SegmentedButtonDefaults.itemShape(
                         index = index,
-                        count = CurrencyUnit.entries.size
-                    )
+                        count = CurrencyUnit.entries.size,
+                    ),
                 ) {
                     Text(
                         text = when (currency) {
                             CurrencyUnit.DOLLAR -> "USD ($)"
                             CurrencyUnit.WON -> "KRW (₩)"
-                        }
+                        },
                     )
                 }
             }

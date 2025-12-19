@@ -10,17 +10,14 @@ import io.soma.cryptobook.coinlist.presentation.CoinListRoute
 import io.soma.cryptobook.settings.presentation.SettingsRoute
 
 @Composable
-fun CbNavHost(
-    navigator: CbNavigator,
-    modifier: Modifier = Modifier
-) {
+fun CbNavHost(navigator: CbNavigator, modifier: Modifier = Modifier) {
     NavDisplay(
         backStack = navigator.backStack,
         onBack = { navigator.goBack() },
         modifier = modifier,
         entryDecorators = listOf(
             rememberSaveableStateHolderNavEntryDecorator(),
-            rememberViewModelStoreNavEntryDecorator()
+            rememberViewModelStoreNavEntryDecorator(),
         ),
         entryProvider = entryProvider {
             entry<CbScreen.CoinList> {
@@ -37,6 +34,6 @@ fun CbNavHost(
             entry<CbScreen.Settings> {
                 SettingsRoute()
             }
-        }
+        },
     )
 }

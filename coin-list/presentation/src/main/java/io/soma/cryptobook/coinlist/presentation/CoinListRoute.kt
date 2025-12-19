@@ -13,12 +13,12 @@ import io.soma.cryptobook.core.presentation.collectWithLifecycle
 fun CoinListRoute(
     onNavigateToCoinDetail: (String) -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: CoinListViewModel = hiltViewModel()
+    viewModel: CoinListViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.state.collectAsStateWithLifecycle()
     val context = LocalContext.current
 
-    viewModel.sideEffect.collectWithLifecycle() { effect ->
+    viewModel.sideEffect.collectWithLifecycle { effect ->
         when (effect) {
             is CoinListSideEffect.NavigateToCoinDetail -> onNavigateToCoinDetail(effect.symbol)
             is CoinListSideEffect.ShowToast -> {
@@ -34,6 +34,6 @@ fun CoinListRoute(
     CoinListScreen(
         state = uiState,
         onEvent = viewModel::handleEvent,
-        modifier = modifier
+        modifier = modifier,
     )
 }

@@ -11,7 +11,6 @@ import javax.inject.Inject
 class UserDataRepositoryImpl @Inject constructor(
     private val cbPreferencesDataSource: CbPreferencesDataSource,
 ) : UserDataRepository {
-
     override val userData: Flow<UserData> =
         cbPreferencesDataSource.userData
 
@@ -22,5 +21,4 @@ class UserDataRepositoryImpl @Inject constructor(
     override suspend fun setPriceCurrency(currencyUnit: CurrencyUnit) {
         cbPreferencesDataSource.setCurrencyUnit(currencyUnit)
     }
-
 }

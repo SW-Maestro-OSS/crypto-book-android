@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 
 @HiltViewModel
 class SplashViewModel @Inject constructor(
-    private val coinRepository: CoinRepository
+    private val coinRepository: CoinRepository,
 ) : ViewModel() {
 
     private val _isReady = MutableStateFlow(false)

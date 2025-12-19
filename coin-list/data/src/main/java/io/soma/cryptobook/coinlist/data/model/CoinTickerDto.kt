@@ -6,14 +6,19 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class CoinTickerDto(
-    @SerialName("s") val symbol: String,            // 심볼 (BTCUSDT)
-    @SerialName("c") val lastPrice: String,         // 현재가
-    @SerialName("P") val priceChangePercent: String // 24시간 변동률
+    /** 심볼 (BTCUSDT) */
+    @SerialName("s") val symbol: String,
 
+    /** 현재가 */
+    @SerialName("c") val lastPrice: String,
+
+    /** 24시간 변동률 */
+    @SerialName("P") val priceChangePercent: String,
 )
+
 
 fun CoinTickerDto.toCoinPriceVO() = CoinPriceVO(
     symbol = symbol,
     price = lastPrice.toBigDecimal(),
-    priceChangePercentage24h = priceChangePercent.toDouble()
+    priceChangePercentage24h = priceChangePercent.toDouble(),
 )

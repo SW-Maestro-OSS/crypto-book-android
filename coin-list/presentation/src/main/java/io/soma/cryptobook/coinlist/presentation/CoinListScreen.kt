@@ -22,11 +22,7 @@ import androidx.compose.ui.unit.dp
 import java.math.RoundingMode
 
 @Composable
-fun CoinListScreen(
-    state: CoinListUiState,
-    onEvent: (CoinListEvent) -> Unit,
-    modifier: Modifier
-) {
+fun CoinListScreen(state: CoinListUiState, onEvent: (CoinListEvent) -> Unit, modifier: Modifier) {
     LaunchedEffect(Unit) {
         onEvent(CoinListEvent.OnScreenLoad)
     }
@@ -37,7 +33,7 @@ fun CoinListScreen(
                     .fillMaxWidth()
                     .background(Color.Red.copy(alpha = 0.1f))
                     .padding(8.dp),
-                horizontalArrangement = Arrangement.Center
+                horizontalArrangement = Arrangement.Center,
             ) {
                 Text(text = msg, color = Color.Red)
             }
@@ -48,7 +44,7 @@ fun CoinListScreen(
                     items(state.coins, key = { it.symbol }) { coin ->
                         CoinItem(
                             coin = coin,
-                            onClick = { onEvent(CoinListEvent.OnCoinClicked(coin.symbol)) }
+                            onClick = { onEvent(CoinListEvent.OnCoinClicked(coin.symbol)) },
                         )
                     }
                 }
@@ -57,8 +53,7 @@ fun CoinListScreen(
             if (state.isLoading) {
                 CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
             }
-
-    }
+        }
 //
 //
 //        state.errorMsg?.let { msg ->
@@ -70,17 +65,24 @@ fun CoinListScreen(
 @Composable
 fun CoinItem(coin: CoinItem, onClick: () -> Unit) {
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable { onClick() } // 클릭 리스너
-            .padding(16.dp),
-        horizontalArrangement = Arrangement.SpaceBetween
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .clickable { onClick() } // 클릭 리스너
+                .padding(16.dp),
+        horizontalArrangement = Arrangement.SpaceBetween,
     ) {
         Text(text = coin.symbol)
         Text(text = "$${coin.price.setScale(2, RoundingMode.HALF_UP)}")
         Text(
-            text = "${if (coin.priceChangePercentage24h >= 0) "+" else ""}${coin.priceChangePercentage24h}%",
-            color = if (coin.priceChangePercentage24h >= 0) Color.Green else Color.Red
+            text = "${
+                if (coin.priceChangePercentage24h >= 0) {
+                    "+"
+                } else {
+                    ""
+                }
+            }${coin.priceChangePercentage24h}%",
+            color = if (coin.priceChangePercentage24h >= 0) Color.Green else Color.Red,
         )
     }
 }

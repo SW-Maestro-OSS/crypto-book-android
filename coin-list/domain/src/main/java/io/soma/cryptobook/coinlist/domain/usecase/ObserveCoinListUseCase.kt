@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class ObserveCoinListUseCase @Inject constructor(
-    private val coinRepository: CoinRepository
+    private val coinRepository: CoinRepository,
 ) {
     sealed class Result {
         data class Success(val coinList: List<CoinPriceVO>) : Result()

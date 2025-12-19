@@ -13,7 +13,5 @@ import javax.inject.Singleton
 abstract class SettingsDataModule {
     @Binds
     @Singleton
-    abstract fun bindCoinRepository(
-        impl: UserDataRepositoryImpl
-    ): UserDataRepository
+    abstract fun bindCoinRepository(impl: UserDataRepositoryImpl): UserDataRepository
 }

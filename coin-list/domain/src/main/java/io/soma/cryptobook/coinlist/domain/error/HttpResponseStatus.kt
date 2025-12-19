@@ -51,4 +51,3 @@ enum class HttpResponseStatus(val code: Int, val msg: String) {
         return "$code $msg"
     }
 }
-

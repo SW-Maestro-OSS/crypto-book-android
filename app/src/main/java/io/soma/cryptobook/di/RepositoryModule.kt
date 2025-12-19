@@ -13,7 +13,5 @@ import javax.inject.Singleton
 abstract class RepositoryModule {
     @Binds
     @Singleton
-    abstract fun bindCoinRepository(
-        impl: CoinRepositoryImpl
-    ): CoinRepository
+    abstract fun bindCoinRepository(impl: CoinRepositoryImpl): CoinRepository
 }
