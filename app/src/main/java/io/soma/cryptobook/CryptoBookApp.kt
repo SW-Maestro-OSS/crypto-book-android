@@ -33,7 +33,7 @@ fun CryptoBookApp(
             navigationSuiteItems = {
                 TOP_LEVEL_NAV_ITEMS.forEach { (navKey, navItem) ->
                     val selected =
-                        navKey == navigator.backStack.firstOrNull { it in TOP_LEVEL_NAV_ITEMS.keys }
+                        navKey == navigator.backStack.lastOrNull { it in TOP_LEVEL_NAV_ITEMS.keys }
                     item(
                         selected = selected,
                         icon = { Icon(navItem.icon, contentDescription = null) },
