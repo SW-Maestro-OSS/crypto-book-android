@@ -10,6 +10,12 @@ import androidx.navigation3.runtime.rememberNavBackStack
 @Stable
 class CbNavigator(val backStack: NavBackStack<NavKey>) {
     fun navigateTo(screen: CbScreen) {
+        backStack.remove(screen)
+        backStack.add(screen)
+    }
+
+    fun navigateAsRoot(screen: CbScreen) {
+        backStack.clear()
         backStack.add(screen)
     }
 
@@ -17,10 +23,7 @@ class CbNavigator(val backStack: NavBackStack<NavKey>) {
         backStack.add(CbScreen.CoinDetail(symbol))
     }
 
-    fun navigateToSettings() {
-        backStack.add(CbScreen.Settings)
-    }
-
+    // 이 로직 수정되어야함
     fun goBack(): Boolean {
         return if (backStack.size > 1) {
             backStack.removeLastOrNull()

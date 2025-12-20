@@ -49,6 +49,7 @@ dependencies {
     implementation(projects.coinList.data)
     implementation(projects.coinList.presentation)
     implementation(projects.core.network)
+    implementation(projects.core.domain)
 
     // Networking (for DI modules)
     implementation(libs.kotlinx.serialization.json)
