@@ -61,6 +61,8 @@ dependencies {
     implementation(projects.settings.data)
     implementation(projects.settings.presentation)
 
+    implementation(projects.coinDetail.presentation)
+
     // Navigation 3
     implementation(libs.androidx.navigation3.runtime)
     implementation(libs.androidx.navigation3.ui)

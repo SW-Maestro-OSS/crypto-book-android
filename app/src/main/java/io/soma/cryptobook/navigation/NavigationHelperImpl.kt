@@ -1,5 +1,6 @@
 package io.soma.cryptobook.navigation
 
+import io.soma.cryptobook.core.domain.navigation.AppPage
 import io.soma.cryptobook.core.domain.navigation.NavigationHelper
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -17,8 +18,8 @@ class NavigationHelperImpl @Inject constructor() : NavigationHelper, NavCommandS
 
     override val commands: SharedFlow<NavCommand> = _commands.asSharedFlow()
 
-    override fun navigate(link: String) {
-        _commands.tryEmit(NavCommand.Navigate(link))
+    override fun navigate(page: AppPage) {
+        _commands.tryEmit(NavCommand.Navigate(page))
     }
 
     override fun deepLink(link: String) {

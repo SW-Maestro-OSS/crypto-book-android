@@ -7,6 +7,7 @@ import io.soma.cryptobook.settings.domain.model.UserData
 import io.soma.cryptobook.settings.domain.usecase.GetUserDataUseCase
 import io.soma.cryptobook.settings.domain.usecase.SetLanguageUseCase
 import io.soma.cryptobook.settings.domain.usecase.SetPriceCurrencyUseCase
+import io.soma.cryptobook.settings.domain.usecase.TempNavigateToHomeUseCase
 import io.soma.cryptobook.settings.presentation.base.MviViewModel
 import javax.inject.Inject
 
@@ -23,6 +24,7 @@ sealed interface SettingsSideEffect {
 sealed interface SettingsEvent {
     data class SetLanguage(val language: Language) : SettingsEvent
     data class SetCurrencyUnit(val currencyUnit: CurrencyUnit) : SettingsEvent
+    data object NavigateToHome : SettingsEvent
 }
 
 @HiltViewModel
@@ -30,6 +32,7 @@ class SettingsViewModel @Inject constructor(
     private val getUserDataUseCase: GetUserDataUseCase,
     private val setLanguageUseCase: SetLanguageUseCase,
     private val setPriceCurrencyUseCase: SetPriceCurrencyUseCase,
+    private val tempNavigateToHomeUseCase: TempNavigateToHomeUseCase,
 ) : MviViewModel<SettingsState, SettingsSideEffect>(SettingsState()) {
     init {
         intent {
@@ -47,6 +50,7 @@ class SettingsViewModel @Inject constructor(
         when (event) {
             is SettingsEvent.SetLanguage -> onLanguageChanged(event.language)
             is SettingsEvent.SetCurrencyUnit -> onPriceCurrencyChanged(event.currencyUnit)
+            is SettingsEvent.NavigateToHome -> navigateToHome()
         }
     }
 
@@ -68,5 +72,9 @@ class SettingsViewModel @Inject constructor(
         }.onFailure {
             postSideEffect(SettingsSideEffect.ShowError("통화 설정 실패"))
         }
+    }
+
+    private fun navigateToHome() = intent {
+        tempNavigateToHomeUseCase()
     }
 }

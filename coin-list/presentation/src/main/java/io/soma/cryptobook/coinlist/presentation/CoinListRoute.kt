@@ -7,11 +7,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import io.soma.cryptobook.core.domain.navigation.AppPage
 import io.soma.cryptobook.core.presentation.collectWithLifecycle
 
 @Composable
 fun CoinListRoute(
-    onNavigateToCoinDetail: (String) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: CoinListViewModel = hiltViewModel(),
 ) {
@@ -20,7 +20,10 @@ fun CoinListRoute(
 
     viewModel.sideEffect.collectWithLifecycle { effect ->
         when (effect) {
-            is CoinListSideEffect.NavigateToCoinDetail -> onNavigateToCoinDetail(effect.symbol)
+            is CoinListSideEffect.NavigateToCoinDetail -> viewModel.navigationHelper.navigate(
+                AppPage.CoinDetail("asdf")
+            )
+
             is CoinListSideEffect.ShowToast -> {
                 Toast.makeText(context, effect.message, Toast.LENGTH_SHORT).show()
             }

@@ -6,9 +6,10 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.navigation3.runtime.NavKey
 import dagger.hilt.android.AndroidEntryPoint
+import io.soma.cryptobook.coinlist.presentation.navigation.CoinListNavKey
 import io.soma.cryptobook.core.domain.navigation.NavigationHelper
-import io.soma.cryptobook.navigation.CbScreen
 import io.soma.cryptobook.navigation.LinkRouter
 import io.soma.cryptobook.navigation.NavCommandSource
 import io.soma.cryptobook.splash.SplashViewModel
@@ -40,8 +41,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        val initialScreen: CbScreen =
-            intent?.dataString?.let { linkRouter.resolve(it) } ?: CbScreen.CoinList
+        val initialScreen: NavKey =
+            intent?.dataString?.let { linkRouter.resolve(it) } ?: CoinListNavKey
 
         setContent {
             CryptoBookTheme {

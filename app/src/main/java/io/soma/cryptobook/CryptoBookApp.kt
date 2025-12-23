@@ -20,24 +20,25 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
+import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
-import io.soma.cryptobook.coinlist.presentation.CoinListRoute
+import io.soma.cryptobook.coindetail.presentation.navigation.coinDetailEntry
+import io.soma.cryptobook.coinlist.presentation.navigation.coinListEntry
 import io.soma.cryptobook.navigation.CbNavigator
-import io.soma.cryptobook.navigation.CbScreen
 import io.soma.cryptobook.navigation.LinkRouter
 import io.soma.cryptobook.navigation.NavCommand
 import io.soma.cryptobook.navigation.NavCommandSource
 import io.soma.cryptobook.navigation.TOP_LEVEL_NAV_ITEMS
-import io.soma.cryptobook.settings.presentation.SettingsRoute
+import io.soma.cryptobook.settings.presentation.navigation.settingsEntry
 
 @Composable
 fun CryptoBookApp(
     navSource: NavCommandSource,
     linkRouter: LinkRouter,
-    initialScreen: CbScreen,
+    initialScreen: NavKey,
     modifier: Modifier = Modifier,
 ) {
     val backStack = rememberNavBackStack(initialScreen)
@@ -47,7 +48,7 @@ fun CryptoBookApp(
         navSource.commands.collect { cmd ->
             when (cmd) {
                 is NavCommand.Navigate -> {
-                    val key = linkRouter.resolve(cmd.link)
+                    val key = linkRouter.resolve(cmd.page)
                     navigator.navigateTo(key)
                 }
 
@@ -106,20 +107,9 @@ fun CryptoBookApp(
                             rememberViewModelStoreNavEntryDecorator(),
                         ),
                         entryProvider = entryProvider {
-                            entry<CbScreen.CoinList> {
-                                CoinListRoute(
-                                    onNavigateToCoinDetail = navigator::navigateToCoinDetail,
-                                )
-                            }
-                            entry<CbScreen.CoinDetail> { screen ->
-                                // CoinDetailRoute(
-                                //     symbol = screen.symbol,
-                                //     navigator = navigator
-                                // )
-                            }
-                            entry<CbScreen.Settings> {
-                                SettingsRoute()
-                            }
+                            settingsEntry()
+                            coinListEntry()
+                            coinDetailEntry()
                         },
                     )
                 }
