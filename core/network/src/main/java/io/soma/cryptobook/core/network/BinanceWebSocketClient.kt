@@ -1,5 +1,6 @@
 package io.soma.cryptobook.core.network
 
+import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -22,10 +23,13 @@ class BinanceWebSocketClient @Inject constructor(
 
 //    private var retryCount = 0
 
-    private val _events = MutableSharedFlow<Event>(extraBufferCapacity = 64)
+    private val _events = MutableSharedFlow<Event>(
+        extraBufferCapacity = 64,
+        onBufferOverflow = BufferOverflow.DROP_OLDEST
+    )
 
     companion object {
-        private const val BASE_URL = "wss://fstream.binance.com/ws/"
+        private const val BASE_URL = "wss://fstream.binance.com/"
     }
 
     private var webSocket: WebSocket? = null
@@ -39,6 +43,7 @@ class BinanceWebSocketClient @Inject constructor(
             _events.tryEmit(Event.Message(text))
         }
 
+        // TODO: 재시도 로직 추가(exponential backoff)
         override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
             _events.tryEmit(Event.Error(t))
             this@BinanceWebSocketClient.webSocket = null

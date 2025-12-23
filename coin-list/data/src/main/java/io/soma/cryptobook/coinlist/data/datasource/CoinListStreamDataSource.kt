@@ -20,7 +20,7 @@ class CoinListStreamDataSource @Inject constructor(
     }
 
     fun connect() {
-        webSocketClient.connect("!ticker@arr")
+        webSocketClient.connect("ws/!ticker@arr")
     }
 
     fun disconnect() {
