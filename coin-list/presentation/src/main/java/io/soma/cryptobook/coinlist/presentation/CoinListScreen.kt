@@ -1,5 +1,6 @@
 package io.soma.cryptobook.coinlist.presentation
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -15,11 +16,48 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import io.soma.cryptobook.core.domain.navigation.AppPage
+import io.soma.cryptobook.core.presentation.collectWithLifecycle
 import java.math.RoundingMode
+
+@Composable
+fun CoinListRoute(
+    modifier: Modifier = Modifier,
+    viewModel: CoinListViewModel = hiltViewModel(),
+) {
+    val uiState by viewModel.state.collectAsStateWithLifecycle()
+    val context = LocalContext.current
+
+    viewModel.sideEffect.collectWithLifecycle { effect ->
+        when (effect) {
+            is CoinListSideEffect.NavigateToCoinDetail -> viewModel.navigationHelper.navigate(
+                AppPage.CoinDetail("asdf")
+            )
+
+            is CoinListSideEffect.ShowToast -> {
+                Toast.makeText(context, effect.message, Toast.LENGTH_SHORT).show()
+            }
+
+            CoinListSideEffect.Close -> {
+                // 뒤로가기 로직 구현
+            }
+        }
+    }
+
+    CoinListScreen(
+        state = uiState,
+        onEvent = viewModel::handleEvent,
+        modifier = modifier,
+    )
+}
 
 @Composable
 fun CoinListScreen(state: CoinListUiState, onEvent: (CoinListEvent) -> Unit, modifier: Modifier) {

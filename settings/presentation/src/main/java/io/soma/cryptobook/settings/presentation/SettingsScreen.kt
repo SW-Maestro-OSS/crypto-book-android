@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.SegmentedButton
 import androidx.compose.material3.SegmentedButtonDefaults
@@ -102,6 +103,16 @@ internal fun SettingsScreen(
                     )
                 }
             }
+        }
+
+        Spacer(modifier = Modifier.height(24.dp))
+
+        // Temporary Navigation Button
+        Button(
+            onClick = { onEvent(SettingsEvent.NavigateToHome) },
+            modifier = Modifier.fillMaxWidth(),
+        ) {
+            Text(text = "[임시] 홈으로 이동")
         }
     }
 }
