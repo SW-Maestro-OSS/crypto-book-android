@@ -22,18 +22,19 @@ constructor(
     private val ioDispatcher: CoroutineDispatcher,
 ) : CoinRepository {
 
+    private val cache = LinkedHashMap<String, CoinPriceVO>()
+
     override suspend fun getCoinPrices(): List<CoinPriceVO> = withContext(ioDispatcher) {
             coinListRemoteDataSource.getAllTickerPrices().map { it.toCoinPriceVO() }
     }
 
     override fun observeCoinPrices(): Flow<List<CoinPriceVO>> = flow {
-       val initialData = try {
-           getCoinPrices()
-       } catch (e: Exception) {
-           emptyList()
-       }
-
-        val cache = LinkedHashMap(initialData.associateBy { it.symbol })
+        if (cache.isEmpty()) {
+            try {
+                val initialData = getCoinPrices()
+                initialData.forEach { cache[it.symbol] = it }
+            } catch (e: Exception) {}
+        }
 
         if (cache.isNotEmpty()) {
             emit(cache.values.toList())
