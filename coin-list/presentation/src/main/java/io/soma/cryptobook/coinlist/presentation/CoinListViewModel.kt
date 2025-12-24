@@ -17,7 +17,6 @@ class CoinListViewModel @Inject constructor(
     override fun handleEvent(event: CoinListEvent) {
         when (event) {
             CoinListEvent.OnScreenLoad -> {
-                loadCoins()
                 observeCoins()
             }
 
