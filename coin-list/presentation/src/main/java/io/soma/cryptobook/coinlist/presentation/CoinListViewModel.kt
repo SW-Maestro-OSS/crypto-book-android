@@ -4,6 +4,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.soma.cryptobook.coinlist.domain.usecase.GetCoinListUseCase
 import io.soma.cryptobook.coinlist.domain.usecase.ObserveCoinListUseCase
+import io.soma.cryptobook.core.domain.navigation.NavigationHelper
 import io.soma.cryptobook.core.presentation.BaseViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -12,6 +13,7 @@ import javax.inject.Inject
 class CoinListViewModel @Inject constructor(
     private val getCoinListUseCase: GetCoinListUseCase,
     private val observeCoinListUseCase: ObserveCoinListUseCase,
+    val navigationHelper: NavigationHelper,
 ) :
     BaseViewModel<CoinListEvent, CoinListUiState, CoinListSideEffect>(CoinListUiState()) {
     override fun handleEvent(event: CoinListEvent) {

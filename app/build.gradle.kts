@@ -49,6 +49,7 @@ dependencies {
     implementation(projects.coinList.data)
     implementation(projects.coinList.presentation)
     implementation(projects.core.network)
+    implementation(projects.core.domain)
 
     // Networking (for DI modules)
     implementation(libs.kotlinx.serialization.json)
@@ -59,6 +60,8 @@ dependencies {
     implementation(projects.settings.domain)
     implementation(projects.settings.data)
     implementation(projects.settings.presentation)
+
+    implementation(projects.coinDetail.presentation)
 
     // Navigation 3
     implementation(libs.androidx.navigation3.runtime)

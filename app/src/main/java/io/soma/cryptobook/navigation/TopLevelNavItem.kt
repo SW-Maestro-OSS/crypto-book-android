@@ -5,6 +5,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.ui.graphics.vector.ImageVector
+import io.soma.cryptobook.coinlist.presentation.navigation.CoinListNavKey
+import io.soma.cryptobook.settings.presentation.navigation.SettingsNavKey
 import io.soma.cryptobook.coinlist.presentation.R as coinlistR
 import io.soma.cryptobook.settings.presentation.R as settingsR
 
@@ -24,6 +26,6 @@ val SETTINGS = TopLevelNavItem(
 )
 
 val TOP_LEVEL_NAV_ITEMS = mapOf(
-    CbScreen.CoinList to MARKET,
-    CbScreen.Settings to SETTINGS,
+    CoinListNavKey to MARKET,
+    SettingsNavKey to SETTINGS,
 )
