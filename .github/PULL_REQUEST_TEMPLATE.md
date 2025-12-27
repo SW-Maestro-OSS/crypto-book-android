@@ -1,6 +1,10 @@
 ## 관련 이슈
 - Issue: #
 
+## 사전 점검
+
+- [ ] `./gradlew spotlessApply` 실행을 완료하였습니다.
+
 ## 작업 개요
 
 
