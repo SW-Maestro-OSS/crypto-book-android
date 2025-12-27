@@ -8,6 +8,6 @@ class TempNavigateToHomeUseCase @Inject constructor(
     private val navigationHelper: NavigationHelper,
 ) {
     suspend operator fun invoke() {
-        navigationHelper.navigate(AppPage.CoinList)
+        navigationHelper.navigate(AppPage.Home)
     }
 }

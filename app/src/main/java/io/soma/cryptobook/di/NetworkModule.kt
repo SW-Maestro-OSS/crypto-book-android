@@ -4,8 +4,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import io.soma.cryptobook.coinlist.data.network.BinanceApiService
 import io.soma.cryptobook.core.network.BinanceWebSocketClient
+import io.soma.cryptobook.home.data.network.BinanceApiService
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient

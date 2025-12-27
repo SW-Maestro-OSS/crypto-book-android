@@ -1,10 +1,10 @@
 package io.soma.cryptobook.settings.data.datastore
 
 import androidx.datastore.core.DataStore
-import io.soma.cryptobook.coinlist.data.CurrencyUnitProto
-import io.soma.cryptobook.coinlist.data.LanguageProto
-import io.soma.cryptobook.coinlist.data.UserPreferences
-import io.soma.cryptobook.coinlist.data.copy
+import io.soma.cryptobook.settings.data.CurrencyUnitProto
+import io.soma.cryptobook.settings.data.LanguageProto
+import io.soma.cryptobook.settings.data.UserPreferences
+import io.soma.cryptobook.settings.data.copy
 import io.soma.cryptobook.settings.domain.model.CurrencyUnit
 import io.soma.cryptobook.settings.domain.model.Language
 import io.soma.cryptobook.settings.domain.model.UserData

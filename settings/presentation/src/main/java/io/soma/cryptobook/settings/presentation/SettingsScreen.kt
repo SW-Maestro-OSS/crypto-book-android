@@ -26,7 +26,7 @@ fun SettingsRoute(modifier: Modifier = Modifier, viewModel: SettingsViewModel = 
     val state by viewModel.stateFlow.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
-        viewModel.sideEffectFlow.collect { sideEffect ->
+        viewModel.sideEffectChannel.collect { sideEffect ->
             when (sideEffect) {
                 is SettingsSideEffect.ShowError -> {
                 }

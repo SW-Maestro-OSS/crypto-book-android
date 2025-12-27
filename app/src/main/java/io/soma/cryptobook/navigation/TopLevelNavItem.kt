@@ -5,9 +5,9 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.ui.graphics.vector.ImageVector
-import io.soma.cryptobook.coinlist.presentation.navigation.CoinListNavKey
+import io.soma.cryptobook.home.presentation.navigation.HomeNavKey
 import io.soma.cryptobook.settings.presentation.navigation.SettingsNavKey
-import io.soma.cryptobook.coinlist.presentation.R as coinlistR
+import io.soma.cryptobook.home.presentation.R as homeR
 import io.soma.cryptobook.settings.presentation.R as settingsR
 
 data class TopLevelNavItem(
@@ -15,9 +15,9 @@ data class TopLevelNavItem(
     @StringRes val iconTextId: Int,
 )
 
-val MARKET = TopLevelNavItem(
+val HOME = TopLevelNavItem(
     icon = Icons.Outlined.Home,
-    iconTextId = coinlistR.string.feature_coinlist_title,
+    iconTextId = homeR.string.feature_home_title,
 )
 
 val SETTINGS = TopLevelNavItem(
@@ -26,6 +26,6 @@ val SETTINGS = TopLevelNavItem(
 )
 
 val TOP_LEVEL_NAV_ITEMS = mapOf(
-    CoinListNavKey to MARKET,
+    HomeNavKey to HOME,
     SettingsNavKey to SETTINGS,
 )

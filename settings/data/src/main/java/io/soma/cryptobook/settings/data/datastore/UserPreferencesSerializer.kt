@@ -3,7 +3,7 @@ package io.soma.cryptobook.settings.data.datastore
 import androidx.datastore.core.CorruptionException
 import androidx.datastore.core.Serializer
 import com.google.protobuf.InvalidProtocolBufferException
-import io.soma.cryptobook.coinlist.data.UserPreferences
+import io.soma.cryptobook.settings.data.UserPreferences
 import java.io.InputStream
 import java.io.OutputStream
 import javax.inject.Inject

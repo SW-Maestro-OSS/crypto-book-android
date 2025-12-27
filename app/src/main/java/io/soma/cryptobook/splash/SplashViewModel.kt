@@ -3,7 +3,7 @@ package io.soma.cryptobook.splash
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.soma.cryptobook.coinlist.domain.repository.CoinRepository
+import io.soma.cryptobook.home.domain.repository.CoinRepository
 import jakarta.inject.Inject
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay

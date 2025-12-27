@@ -1,7 +1,7 @@
 package io.soma.cryptobook.core.network.base
 
-import io.soma.cryptobook.coinlist.domain.error.HttpResponseException
-import io.soma.cryptobook.coinlist.domain.error.HttpResponseStatus
+import io.soma.cryptobook.home.domain.error.HttpResponseException
+import io.soma.cryptobook.home.domain.error.HttpResponseStatus
 import retrofit2.Response
 
 abstract class BaseDataSource {
@@ -26,9 +26,9 @@ abstract class BaseDataSource {
                             errorRequestUrl = response.raw().request.url.toString(),
                             msgForLogging = "Success ${response.code()} but unexpected null body",
                             cause =
-                            Throwable(
-                                "Body should not be null for status ${response.code()}",
-                            ),
+                                Throwable(
+                                    "Body should not be null for status ${response.code()}",
+                                ),
                         )
                     }
                 }

@@ -45,9 +45,9 @@ android {
 }
 
 dependencies {
-    implementation(projects.coinList.domain)
-    implementation(projects.coinList.data)
-    implementation(projects.coinList.presentation)
+    implementation(projects.home.domain)
+    implementation(projects.home.data)
+    implementation(projects.home.presentation)
     implementation(projects.core.network)
     implementation(projects.core.domain)
 

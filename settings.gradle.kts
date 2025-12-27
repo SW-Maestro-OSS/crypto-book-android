@@ -24,9 +24,9 @@ rootProject.name = "CryptoBook"
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 include(":app")
-include(":coin-list:domain")
-include(":coin-list:data")
-include(":coin-list:presentation")
+include(":home:domain")
+include(":home:data")
+include(":home:presentation")
 include(":coin-detail:presentation")
 include(":settings:presentation")
 include(":core:presentation")

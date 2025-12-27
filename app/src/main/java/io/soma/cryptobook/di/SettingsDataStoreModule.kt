@@ -9,7 +9,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import io.soma.cryptobook.coinlist.data.UserPreferences
+import io.soma.cryptobook.settings.data.UserPreferences
 import io.soma.cryptobook.settings.data.datastore.UserPreferencesSerializer
 import javax.inject.Singleton
 

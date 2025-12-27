@@ -20,7 +20,7 @@ abstract class MviViewModel<STATE : Any, SIDE_EFFECT : Any>(
     val state: STATE get() = _stateFlow.value
 
     private val _sideEffectChannel = Channel<SIDE_EFFECT>(Channel.BUFFERED)
-    val sideEffectFlow: Flow<SIDE_EFFECT> = _sideEffectChannel.receiveAsFlow()
+    val sideEffectChannel: Flow<SIDE_EFFECT> = _sideEffectChannel.receiveAsFlow()
 
     protected fun intent(block: suspend () -> Unit) {
         viewModelScope.launch { block() }
