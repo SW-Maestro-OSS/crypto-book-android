@@ -9,11 +9,8 @@ import io.soma.cryptobook.coinlist.domain.model.CoinPriceVO
 import io.soma.cryptobook.coinlist.domain.repository.CoinRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.sync.Mutex
-import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
@@ -24,51 +21,41 @@ constructor(
     private val coinListStreamDataSource: CoinListStreamDataSource,
     private val ioDispatcher: CoroutineDispatcher,
 ) : CoinRepository {
-    private val _coinCache = MutableStateFlow<Map<String, CoinPriceVO>>(linkedMapOf())
-    private val mutex = Mutex()
+
+    private val cache = LinkedHashMap<String, CoinPriceVO>()
 
     override suspend fun getCoinPrices(): List<CoinPriceVO> = withContext(ioDispatcher) {
-        val prices =
-            coinListRemoteDataSource.getAllTickerPrices().map {
-                it.toCoinPriceVO()
-            }
-        mutex.withLock {
-            _coinCache.value = prices.associateBy { it.symbol }
-        }
-        prices
+            coinListRemoteDataSource.getAllTickerPrices().map { it.toCoinPriceVO() }
     }
 
     override fun observeCoinPrices(): Flow<List<CoinPriceVO>> = flow {
-        coinListStreamDataSource.connect()
-        try {
-            coinListStreamDataSource.observeCoinList()
-                .collect { state ->
-                    when (state) {
-                        is CoinListStreamDataSource.State.Success -> {
-                            mutex.withLock {
-                                val updated = LinkedHashMap(_coinCache.value)
+        if (cache.isEmpty()) {
+            try {
+                val initialData = getCoinPrices()
+                initialData.forEach { cache[it.symbol] = it }
+            } catch (e: Exception) {}
+        }
 
-                                state.tickers.forEach { ticker ->
-                                    updated[ticker.symbol] = ticker.toCoinPriceVO()
-                                }
-                                _coinCache.value = updated
-                                emit(updated.values.toList())
-                            }
-                        }
+        if (cache.isNotEmpty()) {
+            emit(cache.values.toList())
+        }
 
-                        is CoinListStreamDataSource.State.Error -> {
-                            throw state.throwable
-                        }
-
-                        is CoinListStreamDataSource.State.Disconnected -> {
-                            throw WebSocketDisconnectedException()
-                        }
-
-                        is CoinListStreamDataSource.State.Connected -> {}
+        coinListStreamDataSource.observeCoinList().collect { state ->
+            when (state) {
+                is CoinListStreamDataSource.State.Success -> {
+                    state.tickers.forEach { ticker ->
+                        cache[ticker.symbol] = ticker.toCoinPriceVO()
                     }
+                    emit(cache.values.toList())
                 }
-        } finally {
-            coinListStreamDataSource.disconnect()
+                is CoinListStreamDataSource.State.Error -> {
+                    throw state.throwable
+                }
+                is CoinListStreamDataSource.State.Disconnected -> {
+                    throw WebSocketDisconnectedException()
+                }
+                is CoinListStreamDataSource.State.Connected -> {}
+            }
         }
     }.flowOn(ioDispatcher)
 
