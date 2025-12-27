@@ -1,5 +1,6 @@
 package io.soma.cryptobook
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -41,7 +42,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        val initialScreen: NavKey =
+        val appLinkKey: NavKey =
             intent?.dataString?.let { linkRouter.resolve(it) } ?: HomeNavKey
 
         setContent {
@@ -49,9 +50,16 @@ class MainActivity : ComponentActivity() {
                 CryptoBookApp(
                     navSource = navSource,
                     linkRouter = linkRouter,
-                    initialScreen = initialScreen,
+                    appLinkKey = appLinkKey,
                 )
             }
+        }
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        intent.dataString?.let { link ->
+            navigationHelper.deepLink(link)
         }
     }
 }
