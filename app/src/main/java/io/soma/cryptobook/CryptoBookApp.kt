@@ -26,7 +26,7 @@ import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import io.soma.cryptobook.coindetail.presentation.navigation.coinDetailEntry
-import io.soma.cryptobook.coinlist.presentation.navigation.coinListEntry
+import io.soma.cryptobook.home.presentation.navigation.homeEntry
 import io.soma.cryptobook.navigation.CbNavigator
 import io.soma.cryptobook.navigation.LinkRouter
 import io.soma.cryptobook.navigation.NavCommand
@@ -108,7 +108,7 @@ fun CryptoBookApp(
                         ),
                         entryProvider = entryProvider {
                             settingsEntry()
-                            coinListEntry()
+                            homeEntry()
                             coinDetailEntry()
                         },
                     )

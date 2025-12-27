@@ -24,7 +24,7 @@ android {
 }
 
 dependencies {
-    implementation(projects.coinList.domain)
+    implementation(projects.home.domain)
 
     implementation(libs.okhttp.logging)
     implementation(libs.retrofit.core)
