@@ -15,7 +15,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -29,17 +28,14 @@ import io.soma.cryptobook.core.presentation.collectWithLifecycle
 import java.math.RoundingMode
 
 @Composable
-fun HomeRoute(
-    modifier: Modifier = Modifier,
-    viewModel: HomeViewModel = hiltViewModel(),
-) {
+fun HomeRoute(modifier: Modifier = Modifier, viewModel: HomeViewModel = hiltViewModel()) {
     val uiState by viewModel.state.collectAsStateWithLifecycle()
     val context = LocalContext.current
 
     viewModel.sideEffect.collectWithLifecycle { effect ->
         when (effect) {
             is HomeSideEffect.NavigateToCoinDetail -> viewModel.navigationHelper.navigate(
-                AppPage.CoinDetail("asdf")
+                AppPage.CoinDetail("asdf"),
             )
 
             is HomeSideEffect.ShowToast -> {
@@ -61,9 +57,6 @@ fun HomeRoute(
 
 @Composable
 fun HomeScreen(state: HomeUiState, onEvent: (HomeEvent) -> Unit, modifier: Modifier) {
-    LaunchedEffect(Unit) {
-        onEvent(HomeEvent.OnScreenLoad)
-    }
     Column(modifier = modifier.fillMaxSize()) {
         state.errorMsg?.let { msg ->
             Row(
@@ -104,10 +97,10 @@ fun HomeScreen(state: HomeUiState, onEvent: (HomeEvent) -> Unit, modifier: Modif
 fun CoinItem(coin: CoinItem, onClick: () -> Unit) {
     Row(
         modifier =
-            Modifier
-                .fillMaxWidth()
-                .clickable { onClick() } // 클릭 리스너
-                .padding(16.dp),
+        Modifier
+            .fillMaxWidth()
+            .clickable { onClick() } // 클릭 리스너
+            .padding(16.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
     ) {
         Text(text = coin.symbol)
