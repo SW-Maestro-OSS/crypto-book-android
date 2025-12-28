@@ -14,8 +14,12 @@ class HomeViewModel @Inject constructor(
     private val getCoinListUseCase: GetCoinListUseCase,
     private val observeCoinListUseCase: ObserveCoinListUseCase,
     val navigationHelper: NavigationHelper,
-) :
-    BaseViewModel<HomeEvent, HomeUiState, HomeSideEffect>(HomeUiState()) {
+) : BaseViewModel<HomeEvent, HomeUiState, HomeSideEffect>(HomeUiState()) {
+
+    init {
+        handleEvent(HomeEvent.OnScreenLoad)
+    }
+
     override fun handleEvent(event: HomeEvent) {
         when (event) {
             HomeEvent.OnScreenLoad -> {
@@ -93,7 +97,7 @@ class HomeViewModel @Inject constructor(
 
             is GetCoinListUseCase.Result.Error.Server,
             is GetCoinListUseCase.Result.Error.Unknown,
-                -> {
+            -> {
                 sendSideEffect { HomeSideEffect.ShowToast("잠시 후 다시 시도해주세요") }
             }
         }
