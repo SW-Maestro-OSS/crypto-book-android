@@ -21,7 +21,7 @@ class CbNavigator(val state: NavigationState) {
         state.backStack.add(key)
     }
 
-    fun replaceLast(key: NavKey, predicate: (NavKey) -> Boolean) {
+    fun popWhileAndPush(key: NavKey, predicate: (NavKey) -> Boolean) {
         while (state.backStack.isNotEmpty() && predicate(state.backStack.last())) {
             state.backStack.removeLastOrNull()
         }
