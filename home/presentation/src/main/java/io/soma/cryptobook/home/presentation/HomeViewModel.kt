@@ -17,12 +17,12 @@ class HomeViewModel @Inject constructor(
 ) : BaseViewModel<HomeEvent, HomeUiState, HomeSideEffect>(HomeUiState()) {
 
     init {
-        handleEvent(HomeEvent.OnScreenLoad)
+        observeCoins()
     }
 
     override fun handleEvent(event: HomeEvent) {
         when (event) {
-            HomeEvent.OnScreenLoad -> {
+            HomeEvent.OnRefresh -> {
                 observeCoins()
             }
 
@@ -97,7 +97,7 @@ class HomeViewModel @Inject constructor(
 
             is GetCoinListUseCase.Result.Error.Server,
             is GetCoinListUseCase.Result.Error.Unknown,
-            -> {
+                -> {
                 sendSideEffect { HomeSideEffect.ShowToast("잠시 후 다시 시도해주세요") }
             }
         }

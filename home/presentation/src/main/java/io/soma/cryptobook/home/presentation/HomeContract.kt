@@ -19,7 +19,7 @@ data class CoinItem(
 )
 
 sealed class HomeEvent : Event {
-    object OnScreenLoad : HomeEvent()
+    object OnRefresh : HomeEvent()
     object OnBackClicked : HomeEvent()
     data class OnCoinClicked(val symbol: String) : HomeEvent()
 }
