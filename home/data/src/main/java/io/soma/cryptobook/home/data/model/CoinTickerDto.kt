@@ -1,6 +1,6 @@
 package io.soma.cryptobook.home.data.model
 
-import io.soma.cryptobook.home.domain.model.CoinPriceVO
+import io.soma.cryptobook.core.domain.model.CoinPriceVO
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 

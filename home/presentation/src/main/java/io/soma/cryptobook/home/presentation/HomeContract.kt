@@ -1,9 +1,9 @@
 package io.soma.cryptobook.home.presentation
 
+import io.soma.cryptobook.core.domain.model.CoinPriceVO
 import io.soma.cryptobook.core.presentation.Event
 import io.soma.cryptobook.core.presentation.SideEffect
 import io.soma.cryptobook.core.presentation.UiState
-import io.soma.cryptobook.home.domain.model.CoinPriceVO
 import java.math.BigDecimal
 
 data class HomeUiState(

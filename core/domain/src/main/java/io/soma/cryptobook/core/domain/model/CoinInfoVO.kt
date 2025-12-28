@@ -1,4 +1,4 @@
-package io.soma.cryptobook.home.domain.model
+package io.soma.cryptobook.core.domain.model
 
 data class CoinInfoVO(
     val symbol: String,

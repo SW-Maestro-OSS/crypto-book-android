@@ -1,7 +1,7 @@
-package io.soma.cryptobook.home.domain.repository
+package io.soma.cryptobook.core.domain.repository
 
-import io.soma.cryptobook.home.domain.model.CoinInfoVO
-import io.soma.cryptobook.home.domain.model.CoinPriceVO
+import io.soma.cryptobook.core.domain.model.CoinInfoVO
+import io.soma.cryptobook.core.domain.model.CoinPriceVO
 import kotlinx.coroutines.flow.Flow
 
 interface CoinRepository {
