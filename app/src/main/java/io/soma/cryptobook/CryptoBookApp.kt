@@ -60,7 +60,7 @@ fun CryptoBookApp(
                 // onNewIntent 상황에서만 호출됨
                 is NavCommand.DeepLink -> {
                     val key = linkRouter.resolve(cmd.link)
-                    navigator.replaceLast(key) { it::class == key::class }
+                    navigator.popWhileAndPush(key) { it::class == key::class }
                 }
 
                 is NavCommand.Back -> {
