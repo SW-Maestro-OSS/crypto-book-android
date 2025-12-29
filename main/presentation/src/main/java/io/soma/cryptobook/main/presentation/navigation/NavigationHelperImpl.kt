@@ -1,4 +1,4 @@
-package io.soma.cryptobook.navigation
+package io.soma.cryptobook.main.presentation.navigation
 
 import io.soma.cryptobook.core.domain.navigation.AppPage
 import io.soma.cryptobook.core.domain.navigation.NavigationHelper

@@ -1,4 +1,4 @@
-package io.soma.cryptobook.navigation
+package io.soma.cryptobook.main.presentation.navigation
 
 import androidx.annotation.StringRes
 import androidx.compose.material.icons.Icons

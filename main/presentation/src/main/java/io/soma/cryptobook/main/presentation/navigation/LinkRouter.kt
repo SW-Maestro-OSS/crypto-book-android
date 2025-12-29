@@ -1,4 +1,4 @@
-package io.soma.cryptobook.navigation
+package io.soma.cryptobook.main.presentation.navigation
 
 import androidx.core.net.toUri
 import androidx.navigation3.runtime.NavKey

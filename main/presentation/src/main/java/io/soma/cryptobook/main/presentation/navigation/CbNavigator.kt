@@ -1,4 +1,4 @@
-package io.soma.cryptobook.navigation
+package io.soma.cryptobook.main.presentation.navigation
 
 import androidx.compose.runtime.Stable
 import androidx.navigation3.runtime.NavBackStack

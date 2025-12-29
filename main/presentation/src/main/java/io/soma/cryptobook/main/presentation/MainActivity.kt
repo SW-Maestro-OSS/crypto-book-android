@@ -1,4 +1,4 @@
-package io.soma.cryptobook
+package io.soma.cryptobook.main.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -10,10 +10,9 @@ import androidx.navigation3.runtime.NavKey
 import dagger.hilt.android.AndroidEntryPoint
 import io.soma.cryptobook.core.domain.navigation.NavigationHelper
 import io.soma.cryptobook.home.presentation.navigation.HomeNavKey
-import io.soma.cryptobook.navigation.LinkRouter
-import io.soma.cryptobook.navigation.NavCommandSource
-import io.soma.cryptobook.splash.SplashViewModel
-import io.soma.cryptobook.ui.theme.CryptoBookTheme
+import io.soma.cryptobook.main.presentation.navigation.LinkRouter
+import io.soma.cryptobook.main.presentation.navigation.NavCommandSource
+import io.soma.cryptobook.main.presentation.splash.SplashViewModel
 import javax.inject.Inject
 
 private const val TAG = "CBLOG_MainActivity"
@@ -45,13 +44,11 @@ class MainActivity : ComponentActivity() {
             intent?.dataString?.let { linkRouter.resolve(it) } ?: HomeNavKey
 
         setContent {
-            CryptoBookTheme {
-                CryptoBookApp(
-                    navSource = navSource,
-                    linkRouter = linkRouter,
-                    initialScreen = initialScreen,
-                )
-            }
+            CryptoBookApp(
+                navSource = navSource,
+                linkRouter = linkRouter,
+                initialScreen = initialScreen,
+            )
         }
     }
 }

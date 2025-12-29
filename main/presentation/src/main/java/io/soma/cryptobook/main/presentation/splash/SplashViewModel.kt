@@ -1,4 +1,4 @@
-package io.soma.cryptobook.splash
+package io.soma.cryptobook.main.presentation.splash
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

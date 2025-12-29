@@ -1,4 +1,4 @@
-package io.soma.cryptobook
+package io.soma.cryptobook.main.presentation
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -27,11 +27,11 @@ import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import io.soma.cryptobook.coindetail.presentation.navigation.coinDetailEntry
 import io.soma.cryptobook.home.presentation.navigation.homeEntry
-import io.soma.cryptobook.navigation.CbNavigator
-import io.soma.cryptobook.navigation.LinkRouter
-import io.soma.cryptobook.navigation.NavCommand
-import io.soma.cryptobook.navigation.NavCommandSource
-import io.soma.cryptobook.navigation.TOP_LEVEL_NAV_ITEMS
+import io.soma.cryptobook.main.presentation.navigation.CbNavigator
+import io.soma.cryptobook.main.presentation.navigation.LinkRouter
+import io.soma.cryptobook.main.presentation.navigation.NavCommand
+import io.soma.cryptobook.main.presentation.navigation.NavCommandSource
+import io.soma.cryptobook.main.presentation.navigation.TOP_LEVEL_NAV_ITEMS
 import io.soma.cryptobook.settings.presentation.navigation.settingsEntry
 
 @Composable
