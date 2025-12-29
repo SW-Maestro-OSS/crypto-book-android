@@ -1,0 +1,125 @@
+package io.soma.cryptobook.main.presentation
+
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.WindowInsetsSides
+import androidx.compose.foundation.layout.consumeWindowInsets
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.only
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffold
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
+import androidx.navigation3.runtime.NavKey
+import androidx.navigation3.runtime.entryProvider
+import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
+import androidx.navigation3.ui.NavDisplay
+import io.soma.cryptobook.coindetail.presentation.navigation.coinDetailEntry
+import io.soma.cryptobook.home.presentation.navigation.HomeNavKey
+import io.soma.cryptobook.home.presentation.navigation.homeEntry
+import io.soma.cryptobook.main.presentation.navigation.CbNavigator
+import io.soma.cryptobook.main.presentation.navigation.LinkRouter
+import io.soma.cryptobook.main.presentation.navigation.NavCommand
+import io.soma.cryptobook.main.presentation.navigation.NavCommandSource
+import io.soma.cryptobook.main.presentation.navigation.TOP_LEVEL_NAV_ITEMS
+import io.soma.cryptobook.navigation.rememberNavigationState
+import io.soma.cryptobook.settings.presentation.navigation.settingsEntry
+
+@Composable
+fun CryptoBookApp(
+    navSource: NavCommandSource,
+    linkRouter: LinkRouter,
+    appLinkKey: NavKey,
+    modifier: Modifier = Modifier,
+) {
+    val navigationState = rememberNavigationState(HomeNavKey, TOP_LEVEL_NAV_ITEMS.keys)
+    if (appLinkKey !is HomeNavKey) {
+        navigationState.backStack.add(appLinkKey)
+    }
+
+    val navigator = remember { CbNavigator(navigationState) }
+
+    LaunchedEffect(Unit) {
+        navSource.commands.collect { cmd ->
+            when (cmd) {
+                is NavCommand.Navigate -> {
+                    val key = linkRouter.resolve(cmd.page)
+                    navigator.navigateTo(key)
+                }
+
+                // onNewIntent 상황에서만 호출됨
+                is NavCommand.DeepLink -> {
+                    val key = linkRouter.resolve(cmd.link)
+                    navigator.popWhileAndPush(key) { it::class == key::class }
+                }
+
+                is NavCommand.Back -> {
+                    navigator.goBack()
+                }
+            }
+        }
+    }
+
+    NavigationSuiteScaffold(
+        navigationSuiteItems = {
+            TOP_LEVEL_NAV_ITEMS.forEach { (navKey, navItem) ->
+                val selected =
+                    navKey == navigationState.currentTopKey
+                item(
+                    selected = selected,
+                    icon = { Icon(navItem.icon, contentDescription = null) },
+                    label = { Text(stringResource(navItem.iconTextId)) },
+                    onClick = { navigator.navigateTo(navKey) },
+                )
+            }
+        },
+    ) {
+        Scaffold(
+            modifier = modifier,
+            contentWindowInsets = WindowInsets(0, 0, 0, 0),
+        ) { padding ->
+            Column(
+                Modifier
+                    .fillMaxSize()
+                    .padding(padding)
+                    .consumeWindowInsets(padding)
+                    .windowInsetsPadding(
+                        WindowInsets.safeDrawing.only(
+                            WindowInsetsSides.Horizontal,
+                        ),
+                    ),
+            ) {
+                Box(
+                    modifier = Modifier.consumeWindowInsets(
+                        WindowInsets(0, 0, 0, 0),
+                    ),
+                ) {
+                    NavDisplay(
+                        backStack = navigationState.backStack,
+                        onBack = { navigator.goBack() },
+                        modifier = modifier,
+                        entryDecorators = listOf(
+                            rememberSaveableStateHolderNavEntryDecorator(),
+                            rememberViewModelStoreNavEntryDecorator(),
+                        ),
+                        entryProvider = entryProvider {
+                            settingsEntry()
+                            homeEntry()
+                            coinDetailEntry()
+                        },
+                    )
+                }
+            }
+        }
+    }
+}
