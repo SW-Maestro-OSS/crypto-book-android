@@ -14,11 +14,15 @@ class HomeViewModel @Inject constructor(
     private val getCoinListUseCase: GetCoinListUseCase,
     private val observeCoinListUseCase: ObserveCoinListUseCase,
     val navigationHelper: NavigationHelper,
-) :
-    BaseViewModel<HomeEvent, HomeUiState, HomeSideEffect>(HomeUiState()) {
+) : BaseViewModel<HomeEvent, HomeUiState, HomeSideEffect>(HomeUiState()) {
+
+    init {
+        observeCoins()
+    }
+
     override fun handleEvent(event: HomeEvent) {
         when (event) {
-            HomeEvent.OnScreenLoad -> {
+            HomeEvent.OnRefresh -> {
                 observeCoins()
             }
 
