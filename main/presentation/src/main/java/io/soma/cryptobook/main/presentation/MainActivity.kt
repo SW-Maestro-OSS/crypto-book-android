@@ -11,6 +11,7 @@ import androidx.navigation3.runtime.NavKey
 import dagger.hilt.android.AndroidEntryPoint
 import io.soma.cryptobook.core.domain.navigation.NavigationHelper
 import io.soma.cryptobook.home.presentation.navigation.HomeNavKey
+import io.soma.cryptobook.main.presentation.message.MessageCommandSource
 import io.soma.cryptobook.main.presentation.navigation.LinkRouter
 import io.soma.cryptobook.main.presentation.navigation.NavCommandSource
 import io.soma.cryptobook.main.presentation.splash.SplashViewModel
@@ -26,6 +27,9 @@ class MainActivity : ComponentActivity() {
 
     @Inject
     lateinit var navSource: NavCommandSource
+
+    @Inject
+    lateinit var messageSource: MessageCommandSource
 
     @Inject
     lateinit var navigationHelper: NavigationHelper
@@ -48,6 +52,7 @@ class MainActivity : ComponentActivity() {
             CryptoBookApp(
                 navSource = navSource,
                 linkRouter = linkRouter,
+                messageSource = messageSource,
                 appLinkKey = appLinkKey,
             )
         }

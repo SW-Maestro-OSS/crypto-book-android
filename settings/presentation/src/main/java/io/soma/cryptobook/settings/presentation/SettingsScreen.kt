@@ -114,5 +114,22 @@ internal fun SettingsScreen(
         ) {
             Text(text = "[임시] 홈으로 이동")
         }
+
+        // Temporary Message Button
+        Spacer(modifier = Modifier.height(8.dp))
+        Button(
+            onClick = { onEvent(SettingsEvent.ShowLoadingMessage) },
+            modifier = Modifier.fillMaxWidth(),
+        ) {
+            Text(text = "[임시] 로딩 테스트 (3초)")
+        }
+
+        Spacer(modifier = Modifier.height(8.dp))
+        Button(
+            onClick = { onEvent(SettingsEvent.ShowSnackbarMessage) },
+            modifier = Modifier.fillMaxWidth(),
+        ) {
+            Text(text = "[임시] 스낵바 테스트")
+        }
     }
 }

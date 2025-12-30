@@ -2,6 +2,7 @@ package io.soma.cryptobook.home.presentation
 
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.soma.cryptobook.core.domain.message.MessageHelper
 import io.soma.cryptobook.core.domain.navigation.NavigationHelper
 import io.soma.cryptobook.core.presentation.BaseViewModel
 import io.soma.cryptobook.home.domain.usecase.GetCoinListUseCase
@@ -14,6 +15,7 @@ class HomeViewModel @Inject constructor(
     private val getCoinListUseCase: GetCoinListUseCase,
     private val observeCoinListUseCase: ObserveCoinListUseCase,
     val navigationHelper: NavigationHelper,
+    val messageHelper: MessageHelper,
 ) : BaseViewModel<HomeEvent, HomeUiState, HomeSideEffect>(HomeUiState()) {
 
     init {
@@ -97,7 +99,7 @@ class HomeViewModel @Inject constructor(
 
             is GetCoinListUseCase.Result.Error.Server,
             is GetCoinListUseCase.Result.Error.Unknown,
-                -> {
+            -> {
                 sendSideEffect { HomeSideEffect.ShowToast("잠시 후 다시 시도해주세요") }
             }
         }
