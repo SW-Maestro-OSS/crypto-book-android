@@ -7,7 +7,9 @@ import io.soma.cryptobook.settings.domain.model.UserData
 import io.soma.cryptobook.settings.domain.usecase.GetUserDataUseCase
 import io.soma.cryptobook.settings.domain.usecase.SetLanguageUseCase
 import io.soma.cryptobook.settings.domain.usecase.SetPriceCurrencyUseCase
+import io.soma.cryptobook.settings.domain.usecase.TempLoadingMessageUseCase
 import io.soma.cryptobook.settings.domain.usecase.TempNavigateToHomeUseCase
+import io.soma.cryptobook.settings.domain.usecase.TempSnackbarMessageUseCase
 import io.soma.cryptobook.settings.presentation.base.MviViewModel
 import javax.inject.Inject
 
@@ -25,6 +27,8 @@ sealed interface SettingsEvent {
     data class SetLanguage(val language: Language) : SettingsEvent
     data class SetCurrencyUnit(val currencyUnit: CurrencyUnit) : SettingsEvent
     data object NavigateToHome : SettingsEvent
+    data object ShowLoadingMessage : SettingsEvent
+    data object ShowSnackbarMessage : SettingsEvent
 }
 
 @HiltViewModel
@@ -33,6 +37,8 @@ class SettingsViewModel @Inject constructor(
     private val setLanguageUseCase: SetLanguageUseCase,
     private val setPriceCurrencyUseCase: SetPriceCurrencyUseCase,
     private val tempNavigateToHomeUseCase: TempNavigateToHomeUseCase,
+    private val tempLoadingMessageUseCase: TempLoadingMessageUseCase,
+    private val tempSnackbarMessageUseCase: TempSnackbarMessageUseCase,
 ) : MviViewModel<SettingsState, SettingsSideEffect>(SettingsState()) {
     init {
         intent {
@@ -51,6 +57,8 @@ class SettingsViewModel @Inject constructor(
             is SettingsEvent.SetLanguage -> onLanguageChanged(event.language)
             is SettingsEvent.SetCurrencyUnit -> onPriceCurrencyChanged(event.currencyUnit)
             is SettingsEvent.NavigateToHome -> navigateToHome()
+            is SettingsEvent.ShowLoadingMessage -> showLoadingMessage()
+            is SettingsEvent.ShowSnackbarMessage -> showSnackbarMessage()
         }
     }
 
@@ -76,5 +84,13 @@ class SettingsViewModel @Inject constructor(
 
     private fun navigateToHome() = intent {
         tempNavigateToHomeUseCase()
+    }
+
+    private fun showLoadingMessage() = intent {
+        tempLoadingMessageUseCase()
+    }
+
+    private fun showSnackbarMessage() {
+        tempSnackbarMessageUseCase()
     }
 }
