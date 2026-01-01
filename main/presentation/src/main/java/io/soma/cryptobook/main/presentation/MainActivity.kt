@@ -6,17 +6,18 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
+import androidx.compose.runtime.getValue
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation3.runtime.NavKey
 import dagger.hilt.android.AndroidEntryPoint
 import io.soma.cryptobook.core.domain.navigation.NavigationHelper
 import io.soma.cryptobook.home.presentation.navigation.HomeNavKey
 import io.soma.cryptobook.main.presentation.navigation.LinkRouter
 import io.soma.cryptobook.main.presentation.navigation.NavCommandSource
-import io.soma.cryptobook.main.presentation.splash.SplashViewModel
+import io.soma.cryptobook.splash.presentation.SplashViewModel
+import io.soma.cryptobook.splash.presentation.UpdateRequiredScreen
 import javax.inject.Inject
-
-private const val TAG = "CBLOG_MainActivity"
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -30,14 +31,15 @@ class MainActivity : ComponentActivity() {
     @Inject
     lateinit var navigationHelper: NavigationHelper
 
-    private val viewModel: SplashViewModel by viewModels()
+    private val splashViewModel: SplashViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val splashScreen = installSplashScreen()
 
         splashScreen.setKeepOnScreenCondition {
-            !viewModel.isReady.value
+            splashViewModel.uiState.value.shouldKeepSplashScreen()
         }
+
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
@@ -45,11 +47,24 @@ class MainActivity : ComponentActivity() {
             intent?.dataString?.let { linkRouter.resolve(it) } ?: HomeNavKey
 
         setContent {
-            CryptoBookApp(
-                navSource = navSource,
-                linkRouter = linkRouter,
-                appLinkKey = appLinkKey,
-            )
+            val uiState by splashViewModel.uiState.collectAsStateWithLifecycle()
+
+            when {
+                uiState.shouldKeepSplashScreen() -> {}
+                uiState.shouldNavigateToUpdate() -> {
+                    UpdateRequiredScreen()
+                }
+
+                else -> {
+                    CryptoBookApp(
+                        navSource = navSource,
+                        linkRouter = linkRouter,
+                        appLinkKey = appLinkKey,
+                    )
+                }
+            }
+
+
         }
     }
 
