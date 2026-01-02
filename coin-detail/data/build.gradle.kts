@@ -10,6 +10,11 @@ android {
 }
 
 dependencies {
+    api(projects.core.data)
+    implementation(projects.coinDetail.domain)
+    implementation(projects.core.network)
+
+    implementation(libs.kotlinx.serialization.json)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

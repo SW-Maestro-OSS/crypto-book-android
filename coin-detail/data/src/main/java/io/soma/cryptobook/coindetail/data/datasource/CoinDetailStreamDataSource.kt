@@ -1,4 +1,4 @@
-package io.soma.cryptobook.home.data.datasource
+package io.soma.cryptobook.coindetail.data.datasource
 
 import io.soma.cryptobook.core.data.model.CoinTickerDto
 import io.soma.cryptobook.core.network.BinanceWebSocketClient
@@ -7,20 +7,21 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.serialization.json.Json
 import javax.inject.Inject
 
-class CoinListStreamDataSource @Inject constructor(
+class CoinDetailStreamDataSource @Inject constructor(
     private val webSocketClient: BinanceWebSocketClient,
     private val json: Json,
 ) {
     sealed class State {
-        data class Success(val tickers: List<CoinTickerDto>) : State()
+        data class Success(val ticker: CoinTickerDto) : State()
         data class Error(val throwable: Throwable) : State()
         data object Connected : State()
         data object Disconnected : State()
     }
 
-    private val targetStream = "!ticker@arr"
+    fun observeCoinDetail(symbol: String): Flow<State> = flow {
+        val targetStream = "${symbol.lowercase()}@ticker"
+        val targetSymbol = symbol.uppercase()
 
-    fun observeCoinList(): Flow<State> = flow {
         webSocketClient.connect()
 
         if (webSocketClient.isConnected) {
@@ -33,13 +34,16 @@ class CoinListStreamDataSource @Inject constructor(
                 when (event) {
                     is BinanceWebSocketClient.Event.Message -> {
                         val isTargetEvent = event.message.trim()
-                            .startsWith("[") && event.message.contains("24hrTicker")
+                            .startsWith("{") && event.message.contains("24hrTicker")
                         if (isTargetEvent) {
                             try {
-                                val tickers =
-                                    json.decodeFromString<List<CoinTickerDto>>(event.message)
-                                emit(State.Success(tickers))
-                            } catch (e: Exception) {
+                                val ticker =
+                                    json.decodeFromString<CoinTickerDto>(event.message)
+                                // target symbol만 emit
+                                if (ticker.symbol == targetSymbol) {
+                                    emit(State.Success(ticker))
+                                }
+                            } catch (e: Exception) { // 파싱 실패 무시
                             }
                         }
                     }

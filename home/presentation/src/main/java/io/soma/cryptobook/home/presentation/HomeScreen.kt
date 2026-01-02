@@ -32,7 +32,7 @@ fun HomeRoute(modifier: Modifier = Modifier, viewModel: HomeViewModel = hiltView
     viewModel.sideEffect.collectWithLifecycle { effect ->
         when (effect) {
             is HomeSideEffect.NavigateToCoinDetail -> viewModel.navigationHelper.navigate(
-                AppPage.CoinDetail("asdf"),
+                AppPage.CoinDetail(effect.symbol),
             )
 
             is HomeSideEffect.ShowToast -> {
