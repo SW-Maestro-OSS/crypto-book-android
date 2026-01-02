@@ -48,6 +48,9 @@ dependencies {
     implementation(projects.splash.domain)
     implementation(projects.core.network)
     implementation(projects.core.domain)
+    implementation(projects.coinDetail.data)
+    implementation(projects.coinDetail.domain)
+
 
     // Networking (for DI modules)
     implementation(libs.kotlinx.serialization.json)
