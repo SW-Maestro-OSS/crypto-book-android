@@ -1,7 +1,7 @@
 package io.soma.cryptobook.settings.domain.usecase
 
-import io.soma.cryptobook.settings.domain.model.Language
-import io.soma.cryptobook.settings.domain.repository.UserDataRepository
+import io.soma.cryptobook.core.domain.model.Language
+import io.soma.cryptobook.core.domain.repository.UserDataRepository
 import javax.inject.Inject
 
 class SetLanguageUseCase @Inject constructor(

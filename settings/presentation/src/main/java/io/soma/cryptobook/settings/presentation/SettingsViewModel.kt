@@ -1,10 +1,10 @@
 package io.soma.cryptobook.settings.presentation
 
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.soma.cryptobook.settings.domain.model.CurrencyUnit
-import io.soma.cryptobook.settings.domain.model.Language
-import io.soma.cryptobook.settings.domain.model.UserData
-import io.soma.cryptobook.settings.domain.usecase.GetUserDataUseCase
+import io.soma.cryptobook.core.domain.model.CurrencyUnit
+import io.soma.cryptobook.core.domain.model.Language
+import io.soma.cryptobook.core.domain.model.UserData
+import io.soma.cryptobook.core.domain.usecase.GetUserDataUseCase
 import io.soma.cryptobook.settings.domain.usecase.SetLanguageUseCase
 import io.soma.cryptobook.settings.domain.usecase.SetPriceCurrencyUseCase
 import io.soma.cryptobook.settings.domain.usecase.TempLoadingMessageUseCase

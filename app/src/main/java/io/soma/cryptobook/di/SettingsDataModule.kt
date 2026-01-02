@@ -4,8 +4,8 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import io.soma.cryptobook.settings.data.repository.UserDataRepositoryImpl
-import io.soma.cryptobook.settings.domain.repository.UserDataRepository
+import io.soma.cryptobook.core.data.repository.UserDataRepositoryImpl
+import io.soma.cryptobook.core.domain.repository.UserDataRepository
 import javax.inject.Singleton
 
 @Module

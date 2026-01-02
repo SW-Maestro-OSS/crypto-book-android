@@ -18,8 +18,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import io.soma.cryptobook.settings.domain.model.CurrencyUnit
-import io.soma.cryptobook.settings.domain.model.Language
+import io.soma.cryptobook.core.domain.model.CurrencyUnit
+import io.soma.cryptobook.core.domain.model.Language
 
 @Composable
 fun SettingsRoute(modifier: Modifier = Modifier, viewModel: SettingsViewModel = hiltViewModel()) {
@@ -53,7 +53,6 @@ internal fun SettingsScreen(
 ) {
     val currentLanguage = state.userData?.language ?: Language.ENGLISH
     val currentCurrency = state.userData?.currencyUnit ?: CurrencyUnit.DOLLAR
-
     Column(
         modifier = modifier.padding(16.dp),
     ) {
@@ -104,6 +103,14 @@ internal fun SettingsScreen(
                 }
             }
         }
+
+        // Exchange Rate Section
+        Text(text = "환율 정보")
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(
+            text = "USD/KRW: ${state.userData?.usdKrwExchangeRate?.toPlainString() ?: "로딩 중..."}",
+            modifier = Modifier.fillMaxWidth(),
+        )
 
         Spacer(modifier = Modifier.height(24.dp))
 

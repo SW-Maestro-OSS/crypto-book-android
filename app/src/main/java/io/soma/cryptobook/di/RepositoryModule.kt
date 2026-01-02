@@ -4,7 +4,9 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import io.soma.cryptobook.core.data.repository.ExchangeRateRepositoryImpl
 import io.soma.cryptobook.core.domain.repository.CoinRepository
+import io.soma.cryptobook.core.domain.repository.ExchangeRateRepository
 import io.soma.cryptobook.home.data.repository.CoinRepositoryImpl
 import javax.inject.Singleton
 
@@ -18,4 +20,10 @@ abstract class RepositoryModule {
 //    @Binds
 //    @Singleton
 //    abstract fun bindCoinDetailRepository(impl: CoinDetailRepositoryImpl): CoinDetailRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindExchangeRateRepository(
+        impl: ExchangeRateRepositoryImpl,
+    ): ExchangeRateRepository
 }

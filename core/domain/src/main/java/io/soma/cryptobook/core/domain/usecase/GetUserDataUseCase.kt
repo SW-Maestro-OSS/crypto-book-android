@@ -1,7 +1,7 @@
-package io.soma.cryptobook.settings.domain.usecase
+package io.soma.cryptobook.core.domain.usecase
 
-import io.soma.cryptobook.settings.domain.model.UserData
-import io.soma.cryptobook.settings.domain.repository.UserDataRepository
+import io.soma.cryptobook.core.domain.model.UserData
+import io.soma.cryptobook.core.domain.repository.UserDataRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

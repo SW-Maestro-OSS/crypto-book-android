@@ -1,10 +1,10 @@
-package io.soma.cryptobook.settings.data.repository
+package io.soma.cryptobook.core.data.repository
 
-import io.soma.cryptobook.settings.data.datastore.CbPreferencesDataSource
-import io.soma.cryptobook.settings.domain.model.CurrencyUnit
-import io.soma.cryptobook.settings.domain.model.Language
-import io.soma.cryptobook.settings.domain.model.UserData
-import io.soma.cryptobook.settings.domain.repository.UserDataRepository
+import io.soma.cryptobook.core.data.datastore.CbPreferencesDataSource
+import io.soma.cryptobook.core.domain.model.CurrencyUnit
+import io.soma.cryptobook.core.domain.model.Language
+import io.soma.cryptobook.core.domain.model.UserData
+import io.soma.cryptobook.core.domain.repository.UserDataRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
@@ -20,5 +20,9 @@ class UserDataRepositoryImpl @Inject constructor(
 
     override suspend fun setPriceCurrency(currencyUnit: CurrencyUnit) {
         cbPreferencesDataSource.setCurrencyUnit(currencyUnit)
+    }
+
+    override suspend fun setUsdKrwExchangeRate(usdKrwExchangeRate: Long) {
+        cbPreferencesDataSource.setUsdKrwExchangeRate(usdKrwExchangeRate)
     }
 }

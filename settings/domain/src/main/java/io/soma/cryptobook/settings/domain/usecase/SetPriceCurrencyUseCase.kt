@@ -1,7 +1,7 @@
 package io.soma.cryptobook.settings.domain.usecase
 
-import io.soma.cryptobook.settings.domain.model.CurrencyUnit
-import io.soma.cryptobook.settings.domain.repository.UserDataRepository
+import io.soma.cryptobook.core.domain.model.CurrencyUnit
+import io.soma.cryptobook.core.domain.repository.UserDataRepository
 import javax.inject.Inject
 
 class SetPriceCurrencyUseCase @Inject constructor(
