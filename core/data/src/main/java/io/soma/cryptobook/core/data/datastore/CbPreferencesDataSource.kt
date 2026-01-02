@@ -1,14 +1,15 @@
-package io.soma.cryptobook.settings.data.datastore
+package io.soma.cryptobook.core.data.datastore
 
 import androidx.datastore.core.DataStore
-import io.soma.cryptobook.settings.data.CurrencyUnitProto
-import io.soma.cryptobook.settings.data.LanguageProto
-import io.soma.cryptobook.settings.data.UserPreferences
-import io.soma.cryptobook.settings.data.copy
-import io.soma.cryptobook.settings.domain.model.CurrencyUnit
-import io.soma.cryptobook.settings.domain.model.Language
-import io.soma.cryptobook.settings.domain.model.UserData
+import io.soma.cryptobook.core.data.CurrencyUnitProto
+import io.soma.cryptobook.core.data.LanguageProto
+import io.soma.cryptobook.core.data.UserPreferences
+import io.soma.cryptobook.core.data.copy
+import io.soma.cryptobook.core.domain.model.CurrencyUnit
+import io.soma.cryptobook.core.domain.model.Language
+import io.soma.cryptobook.core.domain.model.UserData
 import kotlinx.coroutines.flow.map
+import java.math.BigDecimal
 import javax.inject.Inject
 
 class CbPreferencesDataSource @Inject constructor(
@@ -37,6 +38,7 @@ class CbPreferencesDataSource @Inject constructor(
                     CurrencyUnitProto.CURRENCY_UNIT_WON,
                     -> CurrencyUnit.WON
                 },
+                usdKrwExchangeRate = BigDecimal.valueOf(it.usdKrwExchangeRate, 4),
             )
         }
 
@@ -59,6 +61,12 @@ class CbPreferencesDataSource @Inject constructor(
                     CurrencyUnit.WON -> CurrencyUnitProto.CURRENCY_UNIT_WON
                 }
             }
+        }
+    }
+
+    suspend fun setUsdKrwExchangeRate(usdKrwExchangeRate: Long) {
+        userPreferences.updateData {
+            it.copy { this.usdKrwExchangeRate = usdKrwExchangeRate }
         }
     }
 }

@@ -48,6 +48,7 @@ dependencies {
     implementation(projects.splash.domain)
     implementation(projects.core.network)
     implementation(projects.core.domain)
+    implementation(projects.core.data)
     implementation(projects.coinDetail.data)
     implementation(projects.coinDetail.domain)
 

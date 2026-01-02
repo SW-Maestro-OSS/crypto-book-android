@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import io.soma.cryptobook.core.domain.repository.CoinRepository
+import io.soma.cryptobook.core.domain.usecase.RefreshExchangeRateUseCase
 import io.soma.cryptobook.splash.domain.usecase.CheckUpdateRequirementUseCase
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
@@ -17,9 +18,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SplashViewModel @Inject constructor(
-    // hs: versionName을 얻기 위해 사용했지만 맞는건지는 의문임
     @ApplicationContext private val context: Context,
     private val checkUpdateRequirementUseCase: CheckUpdateRequirementUseCase,
+    private val refreshExchangeRateUseCase: RefreshExchangeRateUseCase,
     private val coinRepository: CoinRepository,
 ) : ViewModel() {
 
@@ -40,11 +41,24 @@ class SplashViewModel @Inject constructor(
             val prefetchJob = async {
                 runCatching { coinRepository.getCoinPrices() }
             }
+
+            val exchangeRateJob = async {
+                runCatching { refreshExchangeRateUseCase() }
+                    .onFailure { e ->
+                        android.util.Log.e("SplashViewModel", "환율 갱신 실패: ${e.message}", e)
+                    }
+                    .onSuccess {
+                        android.util.Log.d("SplashViewModel", "환율 갱신 성공")
+                    }
+            }
+
             val delayJob = async { delay(2000) }
 
             val isUpdateRequired = versionCheckJob.await()
             prefetchJob.await()
+            exchangeRateJob.await()
             delayJob.await()
+
             _uiState.value = SplashUiState.Success(isUpdateRequired = isUpdateRequired)
         }
     }

@@ -1,4 +1,4 @@
-package io.soma.cryptobook.settings.domain.model
+package io.soma.cryptobook.core.domain.model
 
 enum class Language {
     ENGLISH,
