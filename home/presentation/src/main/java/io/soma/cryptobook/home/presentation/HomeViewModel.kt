@@ -67,29 +67,6 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    private fun loadCoins() {
-        // 코인 목록 로드 로직 구현
-        viewModelScope.launch {
-            setUiState { copy(isLoading = true) }
-
-            when (val result = getCoinListUseCase()) {
-                is GetCoinListUseCase.Result.Success -> {
-                    setUiState {
-                        copy(
-                            isLoading = false,
-                            coins = result.coinList.map { it.toCoinItem() },
-                        )
-                    }
-                }
-
-                is GetCoinListUseCase.Result.Error -> {
-                    setUiState { copy(isLoading = false) }
-                    handleLoadError(result)
-                }
-            }
-        }
-    }
-
     private fun handleLoadError(error: GetCoinListUseCase.Result.Error) {
         when (error) {
             is GetCoinListUseCase.Result.Error.Network -> {
