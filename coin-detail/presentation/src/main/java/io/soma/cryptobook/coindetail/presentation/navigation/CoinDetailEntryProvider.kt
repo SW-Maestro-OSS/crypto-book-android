@@ -12,7 +12,7 @@ fun EntryProviderScope<NavKey>.coinDetailEntry() {
         CoinDetailRoute(
             viewModel = hiltViewModel(
                 creationCallback = { factory: CoinDetailViewModel.Factory ->
-                    factory.create(key.coinName)
+                    factory.create(coinName)
                 },
             ),
         )
