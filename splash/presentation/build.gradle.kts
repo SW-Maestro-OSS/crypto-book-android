@@ -7,3 +7,7 @@ plugins {
 android {
     namespace = "io.soma.cryptobook.splash.presentation"
 }
+
+dependencies {
+    implementation(projects.splash.domain)
+}

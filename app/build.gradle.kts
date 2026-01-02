@@ -44,6 +44,8 @@ dependencies {
     implementation(projects.main.presentation)
 
     implementation(projects.home.data)
+    implementation(projects.splash.data)
+    implementation(projects.splash.domain)
     implementation(projects.core.network)
     implementation(projects.core.domain)
 
