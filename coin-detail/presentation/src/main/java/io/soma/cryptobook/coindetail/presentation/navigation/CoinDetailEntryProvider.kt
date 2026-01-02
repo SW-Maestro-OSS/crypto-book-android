@@ -13,7 +13,7 @@ fun EntryProviderScope<NavKey>.coinDetailEntry() {
             viewModel = hiltViewModel(
                 creationCallback = { factory: CoinDetailViewModel.Factory ->
                     factory.create(key.coinName)
-                }
+                },
             ),
         )
     }

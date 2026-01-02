@@ -17,19 +17,15 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
 @Composable
-fun CoinDetailRoute(
-    modifier: Modifier = Modifier,
-    viewModel: CoinDetailViewModel,
-) {
+fun CoinDetailRoute(modifier: Modifier = Modifier, viewModel: CoinDetailViewModel) {
     val state by viewModel.state.collectAsStateWithLifecycle()
-
 
     CoinDetailScreen(
         state = state,
         onEvent = viewModel::handleEvent,
         modifier = modifier,
 
-        )
+    )
 }
 
 @Composable
@@ -39,8 +35,8 @@ internal fun CoinDetailScreen(
     modifier: Modifier = Modifier,
 ) {
     Box(
-    modifier = modifier.fillMaxSize(),
-    contentAlignment = Alignment.Center,
+        modifier = modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center,
     ) {
         when {
             state.isLoading -> {
@@ -62,10 +58,7 @@ internal fun CoinDetailScreen(
 }
 
 @Composable
-private fun CoinDetailContent(
-    state: CoinDetailUiState,
-    modifier: Modifier = Modifier,
-) {
+private fun CoinDetailContent(state: CoinDetailUiState, modifier: Modifier = Modifier) {
     Column(
         modifier = modifier.padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
