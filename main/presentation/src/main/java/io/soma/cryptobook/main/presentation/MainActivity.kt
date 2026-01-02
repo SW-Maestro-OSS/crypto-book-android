@@ -62,6 +62,7 @@ class MainActivity : ComponentActivity() {
                 else -> {
                     CryptoBookApp(
                         navSource = navSource,
+                        messageSource = messageSource,
                         linkRouter = linkRouter,
                         appLinkKey = appLinkKey,
                     )
