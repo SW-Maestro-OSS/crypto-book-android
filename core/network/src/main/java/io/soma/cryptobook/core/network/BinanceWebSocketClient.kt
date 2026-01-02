@@ -32,7 +32,7 @@ class BinanceWebSocketClient @Inject constructor(
 
     private val _events = MutableSharedFlow<Event>(
         extraBufferCapacity = 64,
-        onBufferOverflow = BufferOverflow.DROP_OLDEST
+        onBufferOverflow = BufferOverflow.DROP_OLDEST,
     )
     val events = _events.asSharedFlow()
 

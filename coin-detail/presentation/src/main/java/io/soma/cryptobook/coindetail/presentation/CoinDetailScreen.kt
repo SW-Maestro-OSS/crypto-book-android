@@ -19,9 +19,6 @@ fun CoinDetailRoute(
 }
 
 @Composable
-internal fun CoinDetailScreen(
-    modifier: Modifier = Modifier,
-    coinName: String
-) {
+internal fun CoinDetailScreen(modifier: Modifier = Modifier, coinName: String) {
     Text(coinName)
 }

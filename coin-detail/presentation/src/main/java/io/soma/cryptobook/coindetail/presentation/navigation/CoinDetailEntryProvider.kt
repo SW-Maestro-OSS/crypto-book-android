@@ -15,7 +15,7 @@ fun EntryProviderScope<NavKey>.coinDetailEntry() {
                 key = coinName,
             ) { factory ->
                 factory.create(coinName)
-            }
+            },
         )
     }
 }

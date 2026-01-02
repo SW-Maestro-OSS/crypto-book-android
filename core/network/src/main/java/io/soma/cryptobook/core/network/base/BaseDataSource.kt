@@ -26,9 +26,9 @@ abstract class BaseDataSource {
                             errorRequestUrl = response.raw().request.url.toString(),
                             msgForLogging = "Success ${response.code()} but unexpected null body",
                             cause =
-                                Throwable(
-                                    "Body should not be null for status ${response.code()}",
-                                ),
+                            Throwable(
+                                "Body should not be null for status ${response.code()}",
+                            ),
                         )
                     }
                 }

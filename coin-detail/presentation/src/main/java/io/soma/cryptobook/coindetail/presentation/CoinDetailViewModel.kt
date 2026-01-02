@@ -13,9 +13,7 @@ class CoinDetailViewModel @AssistedInject constructor(
 ) : ViewModel() {
     @AssistedFactory
     interface Factory {
-        fun create(
-            coinName: String,
-        ): CoinDetailViewModel
+        fun create(coinName: String): CoinDetailViewModel
     }
 
     val tempCoinName = coinName
