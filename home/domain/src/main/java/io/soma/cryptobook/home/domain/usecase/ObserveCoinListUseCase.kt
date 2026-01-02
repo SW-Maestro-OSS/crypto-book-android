@@ -1,8 +1,8 @@
 package io.soma.cryptobook.home.domain.usecase
 
+import io.soma.cryptobook.core.domain.error.WebSocketDisconnectedException
 import io.soma.cryptobook.core.domain.model.CoinPriceVO
 import io.soma.cryptobook.core.domain.repository.CoinRepository
-import io.soma.cryptobook.core.domain.error.WebSocketDisconnectedException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
