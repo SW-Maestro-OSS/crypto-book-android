@@ -10,6 +10,7 @@ android {
 }
 
 dependencies {
+    api(projects.core.data)
     implementation(projects.home.domain)
     implementation(projects.core.network)
 

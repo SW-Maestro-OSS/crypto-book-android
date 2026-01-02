@@ -1,5 +1,6 @@
 package io.soma.cryptobook.home.data.repository
 
+import io.soma.cryptobook.core.data.model.toCoinPriceVO
 import io.soma.cryptobook.core.domain.error.WebSocketDisconnectedException
 import io.soma.cryptobook.core.domain.model.CoinInfoVO
 import io.soma.cryptobook.core.domain.model.CoinPriceVO
