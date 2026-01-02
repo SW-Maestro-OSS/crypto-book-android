@@ -2,8 +2,8 @@ package io.soma.cryptobook.home.domain.usecase
 
 import io.soma.cryptobook.core.domain.model.CoinPriceVO
 import io.soma.cryptobook.core.domain.repository.CoinRepository
-import io.soma.cryptobook.home.domain.error.HttpResponseException
-import io.soma.cryptobook.home.domain.error.HttpResponseStatus
+import io.soma.cryptobook.core.domain.error.HttpResponseException
+import io.soma.cryptobook.core.domain.error.HttpResponseStatus
 import java.io.IOException
 import javax.inject.Inject
 import kotlin.coroutines.cancellation.CancellationException

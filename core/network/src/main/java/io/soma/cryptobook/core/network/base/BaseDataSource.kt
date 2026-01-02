@@ -1,7 +1,7 @@
 package io.soma.cryptobook.core.network.base
 
-import io.soma.cryptobook.home.domain.error.HttpResponseException
-import io.soma.cryptobook.home.domain.error.HttpResponseStatus
+import io.soma.cryptobook.core.domain.error.HttpResponseException
+import io.soma.cryptobook.core.domain.error.HttpResponseStatus
 import retrofit2.Response
 
 abstract class BaseDataSource {

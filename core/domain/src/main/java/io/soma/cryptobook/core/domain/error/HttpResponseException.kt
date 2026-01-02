@@ -1,4 +1,4 @@
-package io.soma.cryptobook.home.domain.error
+package io.soma.cryptobook.core.domain.error
 
 class HttpResponseException(
     val status: HttpResponseStatus,

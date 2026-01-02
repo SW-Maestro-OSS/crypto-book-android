@@ -6,7 +6,7 @@ import io.soma.cryptobook.core.domain.repository.CoinRepository
 import io.soma.cryptobook.home.data.datasource.CoinListRemoteDataSource
 import io.soma.cryptobook.home.data.datasource.CoinListStreamDataSource
 import io.soma.cryptobook.home.data.model.toCoinPriceVO
-import io.soma.cryptobook.home.domain.error.WebSocketDisconnectedException
+import io.soma.cryptobook.core.domain.error.WebSocketDisconnectedException
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
