@@ -1,7 +1,7 @@
 package io.soma.cryptobook.home.data.datasource
 
-import io.soma.cryptobook.core.network.BinanceWebSocketClient
 import io.soma.cryptobook.core.data.model.CoinTickerDto
+import io.soma.cryptobook.core.network.BinanceWebSocketClient
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.serialization.json.Json

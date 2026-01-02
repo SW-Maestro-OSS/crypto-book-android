@@ -18,7 +18,7 @@ class CoinDetailViewModel @AssistedInject constructor(
     private val navigationHelper: NavigationHelper,
     private val messageHelper: MessageHelper,
 ) : BaseViewModel<CoinDetailEvent, CoinDetailUiState, CoinDetailSideEffect>(
-    CoinDetailUiState(symbol = coinName)
+    CoinDetailUiState(symbol = coinName),
 ) {
     @AssistedFactory
     interface Factory {
@@ -48,7 +48,8 @@ class CoinDetailViewModel @AssistedInject constructor(
                                 isLoading = false,
                                 errorMsg = null,
                                 price = result.coinDetail.price,
-                                priceChangePercentage24h = result.coinDetail.priceChangePercentage24h,
+                                priceChangePercentage24h =
+                                result.coinDetail.priceChangePercentage24h,
                             )
                         }
                     }
