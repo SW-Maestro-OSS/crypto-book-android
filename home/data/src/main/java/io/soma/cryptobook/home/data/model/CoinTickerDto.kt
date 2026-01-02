@@ -16,7 +16,6 @@ data class CoinTickerDto(
     @SerialName("P") val priceChangePercent: String,
 )
 
-
 fun CoinTickerDto.toCoinPriceVO() = CoinPriceVO(
     symbol = symbol,
     price = lastPrice.toBigDecimal(),

@@ -56,7 +56,6 @@ class CoinListStreamDataSource @Inject constructor(
                     is BinanceWebSocketClient.Event.Error -> {
                         emit(State.Error(event.throwable))
                     }
-
                 }
             }
         } finally {
