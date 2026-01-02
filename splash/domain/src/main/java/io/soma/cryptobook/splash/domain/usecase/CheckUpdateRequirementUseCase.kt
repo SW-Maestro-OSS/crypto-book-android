@@ -16,10 +16,10 @@ class CheckUpdateRequirementUseCase @Inject constructor(
         val minParts = minVersion.split(".").map { it.toIntOrNull() ?: 0 }
 
         for (i in 0 until maxOf(currentParts.size, minParts.size)) {
-            val c = currentParts.getOrElse(i) { 0 }
-            val m = minParts.getOrElse(i) { 0 }
-            if (c < m) return true
-            if (c > m) return false
+            val currentPart = currentParts.getOrElse(i) { 0 }
+            val minPart = minParts.getOrElse(i) { 0 }
+            if (currentPart < minPart) return true
+            if (currentPart > minPart) return false
         }
         return false
     }
