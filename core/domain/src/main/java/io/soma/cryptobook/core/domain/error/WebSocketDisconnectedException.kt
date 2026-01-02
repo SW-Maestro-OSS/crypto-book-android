@@ -1,3 +1,3 @@
-package io.soma.cryptobook.home.domain.error
+package io.soma.cryptobook.core.domain.error
 
 class WebSocketDisconnectedException : Exception("Websocket disconnected")
