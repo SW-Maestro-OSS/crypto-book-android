@@ -5,17 +5,16 @@ import androidx.navigation3.runtime.EntryProviderScope
 import androidx.navigation3.runtime.NavKey
 import io.soma.cryptobook.coindetail.presentation.CoinDetailRoute
 import io.soma.cryptobook.coindetail.presentation.CoinDetailViewModel
-import io.soma.cryptobook.coindetail.presentation.CoinDetailViewModel.Factory
 
 fun EntryProviderScope<NavKey>.coinDetailEntry() {
     entry<CoinDetailNavKey> { key ->
         val coinName = key.coinName
         CoinDetailRoute(
-            viewModel = hiltViewModel<CoinDetailViewModel, Factory>(
-                key = coinName,
-            ) { factory ->
-                factory.create(coinName)
-            },
+            viewModel = hiltViewModel(
+                creationCallback = { factory: CoinDetailViewModel.Factory ->
+                    factory.create(key.coinName)
+                }
+            ),
         )
     }
 }
