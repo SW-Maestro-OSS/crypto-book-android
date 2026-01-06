@@ -18,17 +18,13 @@ data class CoinItem(
     val priceChangePercentage24h: Double,
 )
 
-sealed class HomeEvent : Event {
-    object OnRefresh : HomeEvent()
-    object OnBackClicked : HomeEvent()
-    data class OnCoinClicked(val symbol: String) : HomeEvent()
+sealed interface HomeEvent : Event {
+    data object OnRefresh : HomeEvent
+    data object OnBackClicked : HomeEvent
+    data class OnCoinClicked(val symbol: String) : HomeEvent
 }
 
-sealed class HomeSideEffect : SideEffect {
-    object Close : HomeSideEffect()
-    data class NavigateToCoinDetail(val symbol: String) : HomeSideEffect()
-    data class ShowToast(val message: String) : HomeSideEffect()
-}
+sealed interface HomeSideEffect : SideEffect
 
 fun CoinPriceVO.toCoinItem() = CoinItem(
     symbol = symbol,

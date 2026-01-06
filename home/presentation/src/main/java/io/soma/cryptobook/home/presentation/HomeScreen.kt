@@ -21,31 +21,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import io.soma.cryptobook.core.domain.navigation.AppPage
-import io.soma.cryptobook.core.presentation.collectWithLifecycle
 import java.math.RoundingMode
 
 @Composable
 fun HomeRoute(modifier: Modifier = Modifier, viewModel: HomeViewModel = hiltViewModel()) {
     val uiState by viewModel.state.collectAsStateWithLifecycle()
-
-    viewModel.sideEffect.collectWithLifecycle { effect ->
-        when (effect) {
-            is HomeSideEffect.NavigateToCoinDetail -> viewModel.navigationHelper.navigate(
-                AppPage.CoinDetail(effect.symbol),
-            )
-
-            is HomeSideEffect.ShowToast -> {
-                // TODO(hs) : 현재 sideEffect 처리 부분은 ViewModel로 옮겨져야 합니다.
-                //
-                viewModel.messageHelper.showToast(effect.message)
-            }
-
-            HomeSideEffect.Close -> {
-                // 뒤로가기 로직 구현
-            }
-        }
-    }
 
     HomeScreen(
         state = uiState,
@@ -55,7 +35,7 @@ fun HomeRoute(modifier: Modifier = Modifier, viewModel: HomeViewModel = hiltView
 }
 
 @Composable
-fun HomeScreen(state: HomeUiState, onEvent: (HomeEvent) -> Unit, modifier: Modifier) {
+internal fun HomeScreen(state: HomeUiState, onEvent: (HomeEvent) -> Unit, modifier: Modifier) {
     Column(modifier = modifier.fillMaxSize()) {
         state.errorMsg?.let { msg ->
             Row(
@@ -84,11 +64,6 @@ fun HomeScreen(state: HomeUiState, onEvent: (HomeEvent) -> Unit, modifier: Modif
                 CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
             }
         }
-//
-//
-//        state.errorMsg?.let { msg ->
-//            Text(text = msg, color = Color.Red, modifier = Modifier.align(Alignment.Center))
-//        }
     }
 }
 
