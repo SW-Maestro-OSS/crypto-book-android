@@ -12,7 +12,6 @@ import androidx.compose.material3.SegmentedButtonDefaults
 import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -23,23 +22,11 @@ import io.soma.cryptobook.core.domain.model.Language
 
 @Composable
 fun SettingsRoute(modifier: Modifier = Modifier, viewModel: SettingsViewModel = hiltViewModel()) {
-    val state by viewModel.stateFlow.collectAsStateWithLifecycle()
-
-    LaunchedEffect(Unit) {
-        viewModel.sideEffectChannel.collect { sideEffect ->
-            when (sideEffect) {
-                is SettingsSideEffect.ShowError -> {
-                }
-
-                is SettingsSideEffect.ShowToast -> {
-                }
-            }
-        }
-    }
+    val uiState by viewModel.state.collectAsStateWithLifecycle()
 
     SettingsScreen(
-        state = state,
-        onEvent = viewModel::onEvent,
+        state = uiState,
+        onEvent = viewModel::handleEvent,
         modifier = modifier,
     )
 }
@@ -47,7 +34,7 @@ fun SettingsRoute(modifier: Modifier = Modifier, viewModel: SettingsViewModel = 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun SettingsScreen(
-    state: SettingsState,
+    state: SettingsUiState,
     onEvent: (SettingsEvent) -> Unit,
     modifier: Modifier = Modifier,
 ) {

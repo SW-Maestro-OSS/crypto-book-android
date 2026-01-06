@@ -1,45 +1,26 @@
 package io.soma.cryptobook.settings.presentation
 
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.soma.cryptobook.core.domain.message.MessageHelper
 import io.soma.cryptobook.core.domain.model.CurrencyUnit
 import io.soma.cryptobook.core.domain.model.Language
-import io.soma.cryptobook.core.domain.model.UserData
+import io.soma.cryptobook.core.domain.navigation.AppPage
+import io.soma.cryptobook.core.domain.navigation.NavigationHelper
 import io.soma.cryptobook.core.domain.usecase.GetUserDataUseCase
+import io.soma.cryptobook.core.presentation.MviViewModel
 import io.soma.cryptobook.settings.domain.usecase.SetLanguageUseCase
 import io.soma.cryptobook.settings.domain.usecase.SetPriceCurrencyUseCase
-import io.soma.cryptobook.settings.domain.usecase.TempLoadingMessageUseCase
-import io.soma.cryptobook.settings.domain.usecase.TempNavigateToHomeUseCase
-import io.soma.cryptobook.settings.domain.usecase.TempSnackbarMessageUseCase
-import io.soma.cryptobook.settings.presentation.base.MviViewModel
+import kotlinx.coroutines.delay
 import javax.inject.Inject
-
-data class SettingsState(
-    val userData: UserData? = null,
-    val isLoading: Boolean = true,
-)
-
-sealed interface SettingsSideEffect {
-    data class ShowError(val message: String) : SettingsSideEffect
-    data class ShowToast(val message: String) : SettingsSideEffect
-}
-
-sealed interface SettingsEvent {
-    data class SetLanguage(val language: Language) : SettingsEvent
-    data class SetCurrencyUnit(val currencyUnit: CurrencyUnit) : SettingsEvent
-    data object NavigateToHome : SettingsEvent
-    data object ShowLoadingMessage : SettingsEvent
-    data object ShowSnackbarMessage : SettingsEvent
-}
 
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
+    private val navigationHelper: NavigationHelper,
+    private val messageHelper: MessageHelper,
     private val getUserDataUseCase: GetUserDataUseCase,
     private val setLanguageUseCase: SetLanguageUseCase,
     private val setPriceCurrencyUseCase: SetPriceCurrencyUseCase,
-    private val tempNavigateToHomeUseCase: TempNavigateToHomeUseCase,
-    private val tempLoadingMessageUseCase: TempLoadingMessageUseCase,
-    private val tempSnackbarMessageUseCase: TempSnackbarMessageUseCase,
-) : MviViewModel<SettingsState, SettingsSideEffect>(SettingsState()) {
+) : MviViewModel<SettingsEvent, SettingsUiState, SettingsSideEffect>(SettingsUiState()) {
     init {
         intent {
             observeUserData()
@@ -52,7 +33,7 @@ class SettingsViewModel @Inject constructor(
         }
     }
 
-    fun onEvent(event: SettingsEvent) {
+    override fun handleEvent(event: SettingsEvent) {
         when (event) {
             is SettingsEvent.SetLanguage -> onLanguageChanged(event.language)
             is SettingsEvent.SetCurrencyUnit -> onPriceCurrencyChanged(event.currencyUnit)
@@ -63,34 +44,28 @@ class SettingsViewModel @Inject constructor(
     }
 
     private fun onLanguageChanged(language: Language) = intent {
-        runCatching {
-            setLanguageUseCase(language)
-        }.onSuccess {
-            postSideEffect(SettingsSideEffect.ShowToast("언어가 변경되었습니다"))
-        }.onFailure {
-            postSideEffect(SettingsSideEffect.ShowError("언어 설정 실패"))
-        }
+        setLanguageUseCase(language)
     }
 
     private fun onPriceCurrencyChanged(currencyUnit: CurrencyUnit) = intent {
-        runCatching {
-            setPriceCurrencyUseCase(currencyUnit)
-        }.onSuccess {
-            postSideEffect(SettingsSideEffect.ShowToast("통화 설정 성공"))
-        }.onFailure {
-            postSideEffect(SettingsSideEffect.ShowError("통화 설정 실패"))
-        }
+        setPriceCurrencyUseCase(currencyUnit)
     }
 
     private fun navigateToHome() = intent {
-        tempNavigateToHomeUseCase()
+        navigationHelper.navigate(AppPage.Home)
     }
 
     private fun showLoadingMessage() = intent {
-        tempLoadingMessageUseCase()
+        messageHelper.showLoading()
+        delay(3000L)
+        messageHelper.hideLoading()
     }
 
     private fun showSnackbarMessage() {
-        tempSnackbarMessageUseCase()
+        messageHelper.showSnackbar(
+            message = "스낵바 테스트 메시지입니다",
+            actionLabel = "확인",
+            onAction = { },
+        )
     }
 }
