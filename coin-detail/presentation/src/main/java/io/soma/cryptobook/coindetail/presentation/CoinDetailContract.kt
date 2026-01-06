@@ -13,11 +13,8 @@ data class CoinDetailUiState(
     val errorMsg: String? = null,
 ) : UiState
 
-sealed class CoinDetailEvent : Event {
-    object OnBackClicked : CoinDetailEvent()
+sealed interface CoinDetailEvent : Event {
+    data object OnBackClicked : CoinDetailEvent
 }
 
-sealed class CoinDetailSideEffect : SideEffect {
-//    object NavigateBack : CoinDetailSideEffect()
-//    data class ShowToast(val message: String) : CoinDetailSideEffect()
-}
+sealed interface CoinDetailSideEffect : SideEffect
