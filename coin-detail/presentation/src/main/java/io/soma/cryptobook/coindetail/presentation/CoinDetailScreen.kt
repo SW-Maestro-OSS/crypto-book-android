@@ -18,13 +18,12 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
 @Composable
 fun CoinDetailRoute(modifier: Modifier = Modifier, viewModel: CoinDetailViewModel) {
-    val state by viewModel.state.collectAsStateWithLifecycle()
+    val uiState by viewModel.state.collectAsStateWithLifecycle()
 
     CoinDetailScreen(
-        state = state,
+        state = uiState,
         onEvent = viewModel::handleEvent,
         modifier = modifier,
-
     )
 }
 
