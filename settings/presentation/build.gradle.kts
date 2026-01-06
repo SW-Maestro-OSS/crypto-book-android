@@ -9,6 +9,7 @@ android {
 }
 
 dependencies {
+    implementation(projects.core.presentation)
     implementation(projects.settings.domain)
 
     implementation(libs.androidx.compose.ui)
