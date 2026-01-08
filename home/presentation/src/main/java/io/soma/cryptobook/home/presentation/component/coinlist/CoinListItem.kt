@@ -89,7 +89,7 @@ fun CoinListItem(
             .fillMaxWidth()
             .background(ScreenBackground)
             .clickable(onClick = onClick)
-            .padding(horizontal = 15.dp, vertical = 9.dp),
+            .padding(vertical = 8.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {

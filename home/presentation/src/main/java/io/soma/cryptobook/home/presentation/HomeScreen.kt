@@ -15,9 +15,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import java.math.BigDecimal
 import io.soma.cryptobook.core.designsystem.theme.ScreenBackground
 import io.soma.cryptobook.core.designsystem.theme.component.CbSearchTopAppBar
 import io.soma.cryptobook.home.presentation.component.coinlist.CoinListItemData
@@ -98,3 +100,41 @@ private fun CoinItem.toCoinListItemData() = CoinListItemData(
     price = "$${price.setScale(2, RoundingMode.HALF_UP)}",
     changePercent = priceChangePercentage24h
 )
+
+@Preview(showBackground = true, backgroundColor = 0xFF1A1A1A)
+@Composable
+private fun HomeScreenPreview() {
+    val sampleCoins = listOf(
+        CoinItem("BTCUSDT", BigDecimal("68500.52"), 2.35),
+        CoinItem("ETHUSDT", BigDecimal("3500.25"), -1.75),
+        CoinItem("BNBUSDT", BigDecimal("580.10"), 0.0),
+        CoinItem("SOLUSDT", BigDecimal("145.30"), 5.20),
+        CoinItem("XRPUSDT", BigDecimal("0.52"), -0.85),
+    )
+
+    HomeScreen(
+        state = HomeUiState(coins = sampleCoins),
+        onEvent = {},
+        modifier = Modifier.background(ScreenBackground)
+    )
+}
+
+@Preview(showBackground = true, backgroundColor = 0xFF1A1A1A)
+@Composable
+private fun HomeScreenLoadingPreview() {
+    HomeScreen(
+        state = HomeUiState(isLoading = true),
+        onEvent = {},
+        modifier = Modifier.background(ScreenBackground)
+    )
+}
+
+@Preview(showBackground = true, backgroundColor = 0xFF1A1A1A)
+@Composable
+private fun HomeScreenErrorPreview() {
+    HomeScreen(
+        state = HomeUiState(errorMsg = "Network error occurred"),
+        onEvent = {},
+        modifier = Modifier.background(ScreenBackground)
+    )
+}
