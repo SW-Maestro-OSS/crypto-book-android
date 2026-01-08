@@ -9,6 +9,7 @@ android {
 }
 
 dependencies {
+    implementation(projects.core.designsystem)
     implementation(projects.splash.presentation)
     implementation(projects.coinDetail.presentation)
     implementation(projects.home.presentation)
