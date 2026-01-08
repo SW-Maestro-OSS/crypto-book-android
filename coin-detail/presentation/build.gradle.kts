@@ -25,6 +25,7 @@ android {
 
 dependencies {
     implementation(projects.core.presentation)
+    implementation(projects.core.designsystem)
     implementation(projects.coinDetail.domain)
 
     implementation(libs.androidx.core.ktx)
