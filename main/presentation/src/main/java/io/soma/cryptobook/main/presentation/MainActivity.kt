@@ -11,6 +11,7 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation3.runtime.NavKey
 import dagger.hilt.android.AndroidEntryPoint
+import io.soma.cryptobook.core.designsystem.theme.theme.CbTheme
 import io.soma.cryptobook.core.domain.navigation.NavigationHelper
 import io.soma.cryptobook.home.presentation.navigation.HomeNavKey
 import io.soma.cryptobook.main.presentation.message.MessageCommandSource
@@ -53,19 +54,21 @@ class MainActivity : ComponentActivity() {
         setContent {
             val uiState by splashViewModel.uiState.collectAsStateWithLifecycle()
 
-            when {
-                uiState.shouldKeepSplashScreen() -> {}
-                uiState.shouldNavigateToUpdate() -> {
-                    UpdateRequiredScreen()
-                }
+            CbTheme {
+                when {
+                    uiState.shouldKeepSplashScreen() -> {}
+                    uiState.shouldNavigateToUpdate() -> {
+                        UpdateRequiredScreen()
+                    }
 
-                else -> {
-                    CryptoBookApp(
-                        navSource = navSource,
-                        messageSource = messageSource,
-                        linkRouter = linkRouter,
-                        appLinkKey = appLinkKey,
-                    )
+                    else -> {
+                        CryptoBookApp(
+                            navSource = navSource,
+                            messageSource = messageSource,
+                            linkRouter = linkRouter,
+                            appLinkKey = appLinkKey,
+                        )
+                    }
                 }
             }
         }
