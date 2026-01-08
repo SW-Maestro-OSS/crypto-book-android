@@ -1,37 +1,44 @@
 package io.soma.cryptobook.settings.presentation
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.SegmentedButton
-import androidx.compose.material3.SegmentedButtonDefaults
-import androidx.compose.material3.SingleChoiceSegmentedButtonRow
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import io.soma.cryptobook.core.designsystem.theme.ScreenBackground
+import io.soma.cryptobook.core.designsystem.theme.component.CbTitleTopAppBar
 import io.soma.cryptobook.core.domain.model.CurrencyUnit
 import io.soma.cryptobook.core.domain.model.Language
+import io.soma.cryptobook.core.domain.model.UserData
+import io.soma.cryptobook.settings.presentation.component.ExchangeRateCard
+import io.soma.cryptobook.settings.presentation.component.SettingsOptionCard
+import java.math.BigDecimal
+import java.text.NumberFormat
+import java.util.Locale
 
 @Composable
 fun SettingsRoute(modifier: Modifier = Modifier, viewModel: SettingsViewModel = hiltViewModel()) {
     val uiState by viewModel.state.collectAsStateWithLifecycle()
 
-    SettingsScreen(
-        state = uiState,
-        onEvent = viewModel::handleEvent,
-        modifier = modifier,
-    )
+    Column(modifier = Modifier.fillMaxSize()) {
+        CbTitleTopAppBar("Settings")
+        SettingsScreen(
+            state = uiState,
+            onEvent = viewModel::handleEvent,
+            modifier = modifier,
+        )
+    }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun SettingsScreen(
     state: SettingsUiState,
@@ -40,90 +47,81 @@ internal fun SettingsScreen(
 ) {
     val currentLanguage = state.userData?.language ?: Language.ENGLISH
     val currentCurrency = state.userData?.currencyUnit ?: CurrencyUnit.DOLLAR
+    val exchangeRate = state.userData?.usdKrwExchangeRate
+
     Column(
-        modifier = modifier.padding(16.dp),
+        modifier = modifier
+            .fillMaxSize()
+            .background(ScreenBackground)
+            .padding(horizontal = 16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
-        // Language Section
-        Text(text = "언어 설정")
-        Spacer(modifier = Modifier.height(8.dp))
-        SingleChoiceSegmentedButtonRow(modifier = Modifier.fillMaxWidth()) {
-            Language.entries.forEachIndexed { index, language ->
-                SegmentedButton(
-                    selected = currentLanguage == language,
-                    onClick = { onEvent(SettingsEvent.SetLanguage(language)) },
-                    shape = SegmentedButtonDefaults.itemShape(
-                        index = index,
-                        count = Language.entries.size,
-                    ),
-                ) {
-                    Text(
-                        text = when (language) {
-                            Language.ENGLISH -> "English"
-                            Language.KOREAN -> "한국어"
-                        },
-                    )
+        // Price Currency Unit
+        SettingsOptionCard(
+            title = "Price Currency Unit",
+            description = "Choose the currency unit for all prices.",
+            options = listOf("Dollar", "Won"),
+            selectedIndex = when (currentCurrency) {
+                CurrencyUnit.DOLLAR -> 0
+                CurrencyUnit.WON -> 1
+            },
+            onOptionSelected = { index ->
+                val currency = when (index) {
+                    0 -> CurrencyUnit.DOLLAR
+                    else -> CurrencyUnit.WON
                 }
-            }
-        }
-
-        Spacer(modifier = Modifier.height(24.dp))
-
-        // Currency Section
-        Text(text = "통화 설정")
-        Spacer(modifier = Modifier.height(8.dp))
-        SingleChoiceSegmentedButtonRow(modifier = Modifier.fillMaxWidth()) {
-            CurrencyUnit.entries.forEachIndexed { index, currency ->
-                SegmentedButton(
-                    selected = currentCurrency == currency,
-                    onClick = { onEvent(SettingsEvent.SetCurrencyUnit(currency)) },
-                    shape = SegmentedButtonDefaults.itemShape(
-                        index = index,
-                        count = CurrencyUnit.entries.size,
-                    ),
-                ) {
-                    Text(
-                        text = when (currency) {
-                            CurrencyUnit.DOLLAR -> "USD ($)"
-                            CurrencyUnit.WON -> "KRW (₩)"
-                        },
-                    )
-                }
-            }
-        }
-
-        // Exchange Rate Section
-        Text(text = "환율 정보")
-        Spacer(modifier = Modifier.height(8.dp))
-        Text(
-            text = "USD/KRW: ${state.userData?.usdKrwExchangeRate?.toPlainString() ?: "로딩 중..."}",
-            modifier = Modifier.fillMaxWidth(),
+                onEvent(SettingsEvent.SetCurrencyUnit(currency))
+            },
         )
 
-        Spacer(modifier = Modifier.height(24.dp))
+        // Language
+        SettingsOptionCard(
+            title = "Language",
+            description = "Change the display language of the app.",
+            options = listOf("English", "Korean"),
+            selectedIndex = when (currentLanguage) {
+                Language.ENGLISH -> 0
+                Language.KOREAN -> 1
+            },
+            onOptionSelected = { index ->
+                val language = when (index) {
+                    0 -> Language.ENGLISH
+                    else -> Language.KOREAN
+                }
+                onEvent(SettingsEvent.SetLanguage(language))
+            },
+        )
 
-        // Temporary Navigation Button
-        Button(
-            onClick = { onEvent(SettingsEvent.NavigateToHome) },
-            modifier = Modifier.fillMaxWidth(),
-        ) {
-            Text(text = "[임시] 홈으로 이동")
-        }
-
-        // Temporary Message Button
-        Spacer(modifier = Modifier.height(8.dp))
-        Button(
-            onClick = { onEvent(SettingsEvent.ShowLoadingMessage) },
-            modifier = Modifier.fillMaxWidth(),
-        ) {
-            Text(text = "[임시] 로딩 테스트 (3초)")
-        }
-
-        Spacer(modifier = Modifier.height(8.dp))
-        Button(
-            onClick = { onEvent(SettingsEvent.ShowSnackbarMessage) },
-            modifier = Modifier.fillMaxWidth(),
-        ) {
-            Text(text = "[임시] 스낵바 테스트")
-        }
+        // Exchange Rate
+        ExchangeRateCard(
+            title = "Exchange Rate",
+            rateText = formatExchangeRate(exchangeRate),
+            updateTimeText = "Rates updated just now",
+            onRefreshClick = {
+                // TODO: Add refresh event
+            },
+        )
     }
+}
+
+private fun formatExchangeRate(rate: BigDecimal?): String {
+    if (rate == null) return "Loading..."
+    val numberFormat = NumberFormat.getNumberInstance(Locale.US)
+    return "1 USD = ${numberFormat.format(rate)} WON"
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun SettingsScreenPreview() {
+    SettingsScreen(
+        state = SettingsUiState(
+            userData = UserData(
+                language = Language.KOREAN,
+                currencyUnit = CurrencyUnit.DOLLAR,
+                usdKrwExchangeRate = BigDecimal("1450"),
+            ),
+            isLoading = false,
+        ),
+        onEvent = {},
+    )
 }
