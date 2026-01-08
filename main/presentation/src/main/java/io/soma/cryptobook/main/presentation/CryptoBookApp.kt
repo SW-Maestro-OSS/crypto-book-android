@@ -4,15 +4,10 @@ import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeDrawing
-import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
@@ -138,38 +133,23 @@ fun CryptoBookApp(
             snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
             contentWindowInsets = WindowInsets(0, 0, 0, 0),
         ) { padding ->
-            Column(
-                Modifier
+            NavDisplay(
+                backStack = navigationState.backStack,
+                onBack = { navigator.goBack() },
+                modifier = modifier
                     .fillMaxSize()
                     .padding(padding)
-                    .consumeWindowInsets(padding)
-                    .windowInsetsPadding(
-                        WindowInsets.safeDrawing.only(
-                            WindowInsetsSides.Horizontal,
-                        ),
-                    ),
-            ) {
-                Box(
-                    modifier = Modifier.consumeWindowInsets(
-                        WindowInsets(0, 0, 0, 0),
-                    ),
-                ) {
-                    NavDisplay(
-                        backStack = navigationState.backStack,
-                        onBack = { navigator.goBack() },
-                        modifier = modifier,
-                        entryDecorators = listOf(
-                            rememberSaveableStateHolderNavEntryDecorator(),
-                            rememberViewModelStoreNavEntryDecorator(),
-                        ),
-                        entryProvider = entryProvider {
-                            settingsEntry()
-                            homeEntry()
-                            coinDetailEntry()
-                        },
-                    )
-                }
-            }
+                    .consumeWindowInsets(padding),
+                entryDecorators = listOf(
+                    rememberSaveableStateHolderNavEntryDecorator(),
+                    rememberViewModelStoreNavEntryDecorator(),
+                ),
+                entryProvider = entryProvider {
+                    settingsEntry()
+                    homeEntry()
+                    coinDetailEntry()
+                },
+            )
         }
     }
 
