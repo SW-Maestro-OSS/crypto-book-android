@@ -41,3 +41,9 @@ val surfaceControlDefault = Color(0xFF262A33)
 
 // Figma: color/surface/card/default
 val surfaceCardDefault = Color(0xFF1E2128)
+
+// Figma: color/icon/default
+val iconDefault = Color(0xFFF3F4F6)
+
+// Figma: color/icon/selected
+val iconSelected = Color(0xFF0D59F2)

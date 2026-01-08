@@ -16,7 +16,11 @@ import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Text
+import androidx.compose.material3.adaptive.WindowAdaptiveInfo
+import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
+import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteDefaults
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffold
+import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffoldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -34,6 +38,8 @@ import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import io.soma.cryptobook.coindetail.presentation.navigation.coinDetailEntry
+import io.soma.cryptobook.core.designsystem.theme.ScreenBackground
+import io.soma.cryptobook.core.designsystem.theme.cbNavigationItemColors
 import io.soma.cryptobook.home.presentation.navigation.HomeNavKey
 import io.soma.cryptobook.home.presentation.navigation.homeEntry
 import io.soma.cryptobook.main.presentation.message.MessageCommand
@@ -52,8 +58,12 @@ fun CryptoBookApp(
     messageSource: MessageCommandSource,
     linkRouter: LinkRouter,
     appLinkKey: NavKey,
+    windowAdaptiveInfo: WindowAdaptiveInfo = currentWindowAdaptiveInfo(),
     modifier: Modifier = Modifier,
 ) {
+    val navigationSuiteItemColors = cbNavigationItemColors()
+    val layoutType = NavigationSuiteScaffoldDefaults.calculateFromAdaptiveInfo(windowAdaptiveInfo)
+
     // navigation
     val navigationState = rememberNavigationState(HomeNavKey, TOP_LEVEL_NAV_ITEMS.keys)
     if (appLinkKey !is HomeNavKey) {
@@ -124,9 +134,15 @@ fun CryptoBookApp(
                     icon = { Icon(navItem.icon, contentDescription = null) },
                     label = { Text(stringResource(navItem.iconTextId)) },
                     onClick = { navigator.navigateTo(navKey) },
+                    colors = navigationSuiteItemColors
                 )
             }
         },
+        layoutType = layoutType,
+        navigationSuiteColors = NavigationSuiteDefaults.colors(
+            navigationBarContainerColor = ScreenBackground,
+            navigationRailContainerColor = ScreenBackground,
+        ),
     ) {
         Scaffold(
             modifier = modifier,
@@ -165,3 +181,4 @@ fun CryptoBookApp(
         }
     }
 }
+
