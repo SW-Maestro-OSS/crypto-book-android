@@ -1,6 +1,7 @@
 package io.soma.cryptobook.core.designsystem.theme.component
 
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -45,7 +46,7 @@ fun CbDetailTopAppBar(
     onFavoriteClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    TopAppBar(
+    CenterAlignedTopAppBar(
         title = {
             Text(
                 text = title,
