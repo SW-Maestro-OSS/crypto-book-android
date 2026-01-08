@@ -71,7 +71,7 @@ fun CoinListItem(
     price: String,
     changePercent: Double,
     onClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     val changeColor = when {
         changePercent > 0 -> PriceUp
@@ -91,18 +91,18 @@ fun CoinListItem(
             .clickable(onClick = onClick)
             .padding(vertical = 8.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         // Left section: Avatar + Symbol/Name
         Row(
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             // Avatar placeholder
             Box(
                 modifier = Modifier
                     .size(40.dp)
                     .clip(RoundedCornerShape(18.dp))
-                    .background(textSecondary.copy(alpha = 0.3f))
+                    .background(textSecondary.copy(alpha = 0.3f)),
             )
 
             Spacer(modifier = Modifier.width(11.dp))
@@ -115,7 +115,7 @@ fun CoinListItem(
                     fontWeight = FontWeight.SemiBold,
                     fontSize = 16.sp,
                     lineHeight = 24.sp,
-                    color = textPrimary
+                    color = textPrimary,
                 )
                 Text(
                     text = name,
@@ -123,14 +123,14 @@ fun CoinListItem(
                     fontWeight = FontWeight.Normal,
                     fontSize = 12.sp,
                     lineHeight = 16.sp,
-                    color = textSecondary
+                    color = textSecondary,
                 )
             }
         }
 
         // Right section: Price + Change
         Column(
-            horizontalAlignment = Alignment.End
+            horizontalAlignment = Alignment.End,
         ) {
             Text(
                 text = price,
@@ -139,7 +139,7 @@ fun CoinListItem(
                 fontSize = 16.sp,
                 lineHeight = 24.sp,
                 color = textPrimary,
-                textAlign = TextAlign.End
+                textAlign = TextAlign.End,
             )
             Text(
                 text = changeText,
@@ -148,7 +148,7 @@ fun CoinListItem(
                 fontSize = 12.sp,
                 lineHeight = 16.sp,
                 color = changeColor,
-                textAlign = TextAlign.End
+                textAlign = TextAlign.End,
             )
         }
     }
@@ -162,7 +162,7 @@ private fun CoinListItemUpPreview() {
         name = "Bitcoin",
         price = "$68500.52",
         changePercent = 1.75,
-        onClick = {}
+        onClick = {},
     )
 }
 
@@ -174,7 +174,7 @@ private fun CoinListItemDownPreview() {
         name = "Bitcoin",
         price = "$68500.52",
         changePercent = -1.75,
-        onClick = {}
+        onClick = {},
     )
 }
 
@@ -186,6 +186,6 @@ private fun CoinListItemFlatPreview() {
         name = "Bitcoin",
         price = "$68500.52",
         changePercent = 0.0,
-        onClick = {}
+        onClick = {},
     )
 }

@@ -51,33 +51,33 @@ fun SortHeader(
     onSymbolClick: () -> Unit,
     onPriceClick: () -> Unit,
     onChangeClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Box(
         modifier = modifier
             .fillMaxWidth()
             .height(45.dp)
             .background(ScreenBackground),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         Row(
             horizontalArrangement = Arrangement.spacedBy(44.dp),
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             SortHeaderItem(
                 label = "Symbol",
                 sortDirection = symbolSort,
-                onClick = onSymbolClick
+                onClick = onSymbolClick,
             )
             SortHeaderItem(
                 label = "Price ($)",
                 sortDirection = priceSort,
-                onClick = onPriceClick
+                onClick = onPriceClick,
             )
             SortHeaderItem(
                 label = "24h Change %",
                 sortDirection = changeSort,
-                onClick = onChangeClick
+                onClick = onChangeClick,
             )
         }
     }
@@ -92,6 +92,6 @@ private fun SortHeaderPreview() {
         changeSort = SortDirection.None,
         onSymbolClick = {},
         onPriceClick = {},
-        onChangeClick = {}
+        onChangeClick = {},
     )
 }

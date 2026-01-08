@@ -32,7 +32,7 @@ import io.soma.cryptobook.core.designsystem.theme.textSecondary
 enum class PriceChangeType {
     Up,
     Down,
-    Flat
+    Flat,
 }
 
 /**
@@ -69,7 +69,7 @@ fun PriceChange(
     price: String,
     priceChangeText: String,
     priceChangeType: PriceChangeType,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     val changeColor = when (priceChangeType) {
         PriceChangeType.Up -> PriceUp
@@ -82,21 +82,21 @@ fun PriceChange(
             .fillMaxWidth()
             .background(ScreenBackground),
         horizontalArrangement = Arrangement.spacedBy(12.dp),
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         // Avatar placeholder
         Box(
             modifier = Modifier
                 .size(56.dp)
                 .clip(CircleShape)
-                .background(textSecondary.copy(alpha = 0.3f))
+                .background(textSecondary.copy(alpha = 0.3f)),
         )
 
         // Price Info
         Column(
             modifier = Modifier.weight(1f),
             verticalArrangement = Arrangement.spacedBy(4.dp),
-            horizontalAlignment = Alignment.Start
+            horizontalAlignment = Alignment.Start,
         ) {
             // Price
             Text(
@@ -107,7 +107,7 @@ fun PriceChange(
                 fontSize = 36.sp,
                 lineHeight = 40.sp,
                 color = textPrimary,
-                textAlign = TextAlign.Start
+                textAlign = TextAlign.Start,
             )
 
             // Price Change
@@ -119,7 +119,7 @@ fun PriceChange(
                 fontSize = 18.sp,
                 lineHeight = 28.sp,
                 color = changeColor,
-                textAlign = TextAlign.Start
+                textAlign = TextAlign.Start,
             )
         }
     }
@@ -131,7 +131,7 @@ private fun PriceChangeUpPreview() {
     PriceChange(
         price = "$73,500.89",
         priceChangeText = "+1,840.55 (+2.58%)",
-        priceChangeType = PriceChangeType.Up
+        priceChangeType = PriceChangeType.Up,
     )
 }
 
@@ -141,7 +141,7 @@ private fun PriceChangeDownPreview() {
     PriceChange(
         price = "$73,500.89",
         priceChangeText = "-1,840.55 (-2.58%)",
-        priceChangeType = PriceChangeType.Down
+        priceChangeType = PriceChangeType.Down,
     )
 }
 
@@ -151,6 +151,6 @@ private fun PriceChangeFlatPreview() {
     PriceChange(
         price = "$73,500.89",
         priceChangeText = "+0.00 (0.00%)",
-        priceChangeType = PriceChangeType.Flat
+        priceChangeType = PriceChangeType.Flat,
     )
 }

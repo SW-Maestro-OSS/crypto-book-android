@@ -1,7 +1,6 @@
 package io.soma.cryptobook.coindetail.presentation
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -10,16 +9,15 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import java.math.BigDecimal
 import io.soma.cryptobook.coindetail.presentation.component.PriceChange
 import io.soma.cryptobook.coindetail.presentation.component.PriceChangeType
 import io.soma.cryptobook.core.designsystem.theme.ScreenBackground
 import io.soma.cryptobook.core.designsystem.theme.component.CbDetailTopAppBar
+import java.math.BigDecimal
 import java.math.RoundingMode
 
 @Composable
@@ -29,14 +27,14 @@ fun CoinDetailRoute(modifier: Modifier = Modifier, viewModel: CoinDetailViewMode
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(ScreenBackground)
+            .background(ScreenBackground),
     ) {
         CbDetailTopAppBar(
             onSearchClick = { },
             title = uiState.symbol,
             onBackClick = { },
             onFavoriteClick = { },
-            modifier = modifier
+            modifier = modifier,
         )
         CoinDetailScreen(
             state = uiState,
@@ -84,7 +82,10 @@ private fun CoinDetailContent(state: CoinDetailUiState, modifier: Modifier = Mod
 
     val changePrefix = if (state.priceChangePercentage24h >= 0) "+" else ""
     // TODO: priceChange 금액을 API에서 받아오기
-    val priceChangeText = "{priceChange} ($changePrefix${String.format("%.2f", state.priceChangePercentage24h)}%)"
+    val priceChangeText = "{priceChange} ($changePrefix${String.format(
+        "%.2f",
+        state.priceChangePercentage24h,
+    )}%)"
 
     Column(
         modifier = modifier.padding(16.dp),
@@ -108,7 +109,7 @@ private fun CoinDetailScreenPreview() {
             isLoading = false,
         ),
         onEvent = {},
-        modifier = Modifier.background(ScreenBackground)
+        modifier = Modifier.background(ScreenBackground),
     )
 }
 
@@ -118,7 +119,7 @@ private fun CoinDetailScreenLoadingPreview() {
     CoinDetailScreen(
         state = CoinDetailUiState(isLoading = true),
         onEvent = {},
-        modifier = Modifier.background(ScreenBackground)
+        modifier = Modifier.background(ScreenBackground),
     )
 }
 
@@ -128,9 +129,9 @@ private fun CoinDetailScreenErrorPreview() {
     CoinDetailScreen(
         state = CoinDetailUiState(
             isLoading = false,
-            errorMsg = "Network error occurred"
+            errorMsg = "Network error occurred",
         ),
         onEvent = {},
-        modifier = Modifier.background(ScreenBackground)
+        modifier = Modifier.background(ScreenBackground),
     )
 }

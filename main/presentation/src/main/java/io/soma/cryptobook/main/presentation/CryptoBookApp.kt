@@ -134,7 +134,7 @@ fun CryptoBookApp(
                     icon = { Icon(navItem.icon, contentDescription = null) },
                     label = { Text(stringResource(navItem.iconTextId)) },
                     onClick = { navigator.navigateTo(navKey) },
-                    colors = navigationSuiteItemColors
+                    colors = navigationSuiteItemColors,
                 )
             }
         },
@@ -181,4 +181,3 @@ fun CryptoBookApp(
         }
     }
 }
-
