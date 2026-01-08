@@ -19,13 +19,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import java.math.BigDecimal
 import io.soma.cryptobook.core.designsystem.theme.ScreenBackground
 import io.soma.cryptobook.core.designsystem.theme.component.CbSearchTopAppBar
 import io.soma.cryptobook.home.presentation.component.coinlist.CoinListItemData
 import io.soma.cryptobook.home.presentation.component.coinlist.CoinListTable
 import io.soma.cryptobook.home.presentation.component.sortheader.SortDirection
 import io.soma.cryptobook.home.presentation.component.sortheader.SortHeader
+import java.math.BigDecimal
 import java.math.RoundingMode
 
 @Composable
@@ -35,10 +35,10 @@ fun HomeRoute(modifier: Modifier = Modifier, viewModel: HomeViewModel = hiltView
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(ScreenBackground)
+            .background(ScreenBackground),
     ) {
         CbSearchTopAppBar(
-            onSearchClick = { }
+            onSearchClick = { },
         )
         HomeScreen(
             state = uiState,
@@ -71,7 +71,7 @@ internal fun HomeScreen(state: HomeUiState, onEvent: (HomeEvent) -> Unit, modifi
             changeSort = SortDirection.None,
             onSymbolClick = { /* TODO: 정렬 기능 구현 */ },
             onPriceClick = { /* TODO: 정렬 기능 구현 */ },
-            onChangeClick = { /* TODO: 정렬 기능 구현 */ }
+            onChangeClick = { /* TODO: 정렬 기능 구현 */ },
         )
 
         // Coin List
@@ -79,7 +79,7 @@ internal fun HomeScreen(state: HomeUiState, onEvent: (HomeEvent) -> Unit, modifi
             if (state.coins.isNotEmpty()) {
                 CoinListTable(
                     coins = state.coins.map { it.toCoinListItemData() },
-                    onCoinClick = { symbol -> onEvent(HomeEvent.OnCoinClicked(symbol)) }
+                    onCoinClick = { symbol -> onEvent(HomeEvent.OnCoinClicked(symbol)) },
                 )
             }
 
@@ -96,9 +96,9 @@ internal fun HomeScreen(state: HomeUiState, onEvent: (HomeEvent) -> Unit, modifi
  */
 private fun CoinItem.toCoinListItemData() = CoinListItemData(
     symbol = symbol,
-    name = symbol.removeSuffix("USDT"),  // TODO: API에서 name 받아오기
+    name = symbol.removeSuffix("USDT"),
     price = "$${price.setScale(2, RoundingMode.HALF_UP)}",
-    changePercent = priceChangePercentage24h
+    changePercent = priceChangePercentage24h,
 )
 
 @Preview(showBackground = true, backgroundColor = 0xFF1A1A1A)
@@ -115,7 +115,7 @@ private fun HomeScreenPreview() {
     HomeScreen(
         state = HomeUiState(coins = sampleCoins),
         onEvent = {},
-        modifier = Modifier.background(ScreenBackground)
+        modifier = Modifier.background(ScreenBackground),
     )
 }
 
@@ -125,7 +125,7 @@ private fun HomeScreenLoadingPreview() {
     HomeScreen(
         state = HomeUiState(isLoading = true),
         onEvent = {},
-        modifier = Modifier.background(ScreenBackground)
+        modifier = Modifier.background(ScreenBackground),
     )
 }
 
@@ -135,6 +135,6 @@ private fun HomeScreenErrorPreview() {
     HomeScreen(
         state = HomeUiState(errorMsg = "Network error occurred"),
         onEvent = {},
-        modifier = Modifier.background(ScreenBackground)
+        modifier = Modifier.background(ScreenBackground),
     )
 }

@@ -24,7 +24,7 @@ import io.soma.cryptobook.core.designsystem.theme.fontFamily
 enum class SortDirection {
     None,
     Asc,
-    Desc
+    Desc,
 }
 
 /**
@@ -59,7 +59,7 @@ fun SortHeaderItem(
     label: String,
     sortDirection: SortDirection,
     onClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     val textColor = when (sortDirection) {
         SortDirection.None -> IconPrimary
@@ -74,7 +74,7 @@ fun SortHeaderItem(
 
     Row(
         modifier = modifier.clickable(onClick = onClick),
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(
             text = label,
@@ -82,13 +82,13 @@ fun SortHeaderItem(
             fontWeight = FontWeight.Bold,
             fontSize = 14.sp,
             lineHeight = 20.sp,
-            color = textColor
+            color = textColor,
         )
         Icon(
             painter = painterResource(id = iconRes),
             contentDescription = "Sort $label",
             tint = textColor,
-            modifier = Modifier.size(20.dp)
+            modifier = Modifier.size(20.dp),
         )
     }
 }
@@ -99,7 +99,7 @@ private fun SortHeaderItemAscPreview() {
     SortHeaderItem(
         label = "Symbol",
         sortDirection = SortDirection.Asc,
-        onClick = {}
+        onClick = {},
     )
 }
 
@@ -109,7 +109,7 @@ private fun SortHeaderItemDescPreview() {
     SortHeaderItem(
         label = "Symbol",
         sortDirection = SortDirection.Desc,
-        onClick = {}
+        onClick = {},
     )
 }
 
@@ -119,6 +119,6 @@ private fun SortHeaderItemNonePreview() {
     SortHeaderItem(
         label = "Symbol",
         sortDirection = SortDirection.None,
-        onClick = {}
+        onClick = {},
     )
 }

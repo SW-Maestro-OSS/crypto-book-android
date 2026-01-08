@@ -1,6 +1,5 @@
 package io.soma.cryptobook.home.presentation.component.coinlist
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
@@ -18,7 +17,7 @@ data class CoinListItemData(
     val symbol: String,
     val name: String,
     val price: String,
-    val changePercent: Double
+    val changePercent: Double,
 )
 
 /**
@@ -48,23 +47,23 @@ data class CoinListItemData(
 fun CoinListTable(
     coins: List<CoinListItemData>,
     onCoinClick: (String) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     LazyColumn(
         modifier = modifier.fillMaxSize(),
         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 7.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         items(
             items = coins,
-            key = { it.symbol }
+            key = { it.symbol },
         ) { coin ->
             CoinListItem(
                 symbol = coin.symbol,
                 name = coin.name,
                 price = coin.price,
                 changePercent = coin.changePercent,
-                onClick = { onCoinClick(coin.symbol) }
+                onClick = { onCoinClick(coin.symbol) },
             )
         }
     }
@@ -78,11 +77,11 @@ private fun CoinListTablePreview() {
         CoinListItemData("ETHUSDT", "Ethereum", "$3500.25", 1.75),
         CoinListItemData("BNBUSDT", "BNB", "$580.10", -1.75),
         CoinListItemData("SOLUSDT", "Solana", "$145.30", 0.0),
-        CoinListItemData("XRPUSDT", "XRP", "$0.52", 2.50)
+        CoinListItemData("XRPUSDT", "XRP", "$0.52", 2.50),
     )
 
     CoinListTable(
         coins = sampleCoins,
-        onCoinClick = {}
+        onCoinClick = {},
     )
 }
