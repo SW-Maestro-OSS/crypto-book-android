@@ -6,3 +6,7 @@ plugins {
 android {
     namespace = "io.soma.cryptobook.core.designsystem"
 }
+
+dependencies {
+    implementation(libs.androidx.compose.material3)
+}
